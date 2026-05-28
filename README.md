@@ -19,7 +19,7 @@
                               （從零生成寓言）
 ```
 
-寫部落格／文章：用前兩支前後串接。從 LLM 倒出的文章先 `humanizer-tw` 把 AI 味跟中國用語清掉，再 `good-writing-zh` 打磨節奏與句子結構。從零學新概念：用 `fable-econ` 或 `fable-explore` 讓 Claude 寫寓言給你看。
+寫文章：兩支前後串接。LLM 倒出的稿子先 `humanizer-tw` 清掉 AI 味跟中國用語，再 `good-writing-zh` 打磨節奏跟句子。從零學新概念：`fable-econ` 或 `fable-explore` 讓 Claude 寫寓言給你看。
 
 ---
 
@@ -33,7 +33,7 @@
 
 **改寫後：**
 
-> 現在很多公司在用 AI。我們專注解決用戶問題，在這個領域做了三年。把供應商和客戶都串起來，從頭到尾都能自己做。合作夥伴也跟著賺錢。專案下個月上線，目標日活 5000。
+> 現在很多公司在用 AI。我們專注解決用戶問題，在這個領域做了三年。把供應商和客戶都串起來，從頭到尾都能自己做。合作夥伴也跟著賺錢。專案下個月上線，目標每日 5000 活躍使用者。
 
 對照 humanizer-tw 抓到的問題：
 
@@ -204,7 +204,7 @@ ln -s ~/writing-skills.TW/fable-explore ~/.claude/skills/fable-explore
 | MCPMarket Paul Graham Style Essayist | 英文 PG 風格產生器，我們是中文改寫 + 余光中／王鼎鈞 |
 | IrtezaAsadRizvi/article-writing-skills | 風格化寫作集，沒處理 AI 痕跡這層 |
 
-**這個 repo 在「中文（台灣繁中）+ 三層串接工作流（去毒→打磨→生成）+ 技術文件保守模式 + OpenCC 漏網清理」這個交集上幾乎沒有同類。**
+**在「中文（台灣繁中）+ 三層串接工作流（去毒→打磨→生成）」這個交集上，這個 repo 幾乎沒有同類。加上技術文件保守模式與 OpenCC 漏網清理層，更難找到對位的競品。**
 
 ---
 
