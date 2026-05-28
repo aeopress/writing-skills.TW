@@ -1,0 +1,8 @@
+.DS_Store
+.proxy.log
+.claude/plans/
+node_modules/
+__pycache__/
+*.pyc
+.env
+.env.local

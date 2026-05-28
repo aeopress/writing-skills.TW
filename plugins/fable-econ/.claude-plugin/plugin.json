@@ -1,0 +1,11 @@
+{
+  "name": "fable-econ",
+  "description": "Amanda Askell's original economics fable prompt (March 2025). Picks a niche economics principle that early undergrads wouldn't know but late grad students would, writes a strict 3-paragraph illustrative story without naming the principle, then reveals and explains it in a single closing paragraph.",
+  "version": "1.0.0",
+  "author": {
+    "name": "yelban",
+    "url": "https://github.com/yelban"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/yelban/writing-skills.TW"
+}

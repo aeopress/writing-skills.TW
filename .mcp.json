@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "kiroku-memory": {
+      "command": "node",
+      "args": [
+        "/Users/orz99/.nvm/versions/node/v22.22.2/lib/node_modules/@kiroku/cli/dist/mcp.cjs"
+      ],
+      "env": {
+        "KIROKU_PROJECT_ID": "Users-orz99-zoo-skills-writing-skills.TW",
+        "KIROKU_ROOT": "/Users/orz99/.nvm/versions/node/v22.22.2/lib/node_modules/@kiroku/cli"
+      }
+    }
+  }
+}

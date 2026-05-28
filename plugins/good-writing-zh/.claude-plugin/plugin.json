@@ -1,0 +1,11 @@
+{
+  "name": "good-writing-zh",
+  "description": "中文好寫作指南：提升中文寫作品質與改寫既有文章。基於 Paul Graham、余光中、王鼎鈞的寫作智慧。",
+  "version": "1.1.0",
+  "author": {
+    "name": "yelban",
+    "url": "https://github.com/yelban"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/yelban/writing-skills.TW"
+}

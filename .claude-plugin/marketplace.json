@@ -1,0 +1,54 @@
+{
+  "name": "writing-skills-tw",
+  "id": "writing-skills-tw",
+  "owner": {
+    "name": "yelban",
+    "url": "https://github.com/yelban"
+  },
+  "metadata": {
+    "description": "Yelban's Traditional Chinese (Taiwan) writing & fable-learning skills for Claude Code — 4 individually installable skills: good-writing-zh (rewrite for Paul Graham / 余光中 / 王鼎鈞 style), humanizer-tw (remove AI writing traces, 台灣繁中), fable-econ (Amanda Askell's economics fable), fable-explore (cross-domain fable concept explorer).",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "fable-econ",
+      "source": "./plugins/fable-econ",
+      "description": "Amanda Askell's original economics fable prompt (March 2025). Picks a niche economics principle that early undergrads wouldn't know but late grad students would, writes a strict 3-paragraph illustrative story without naming the principle, then reveals and explains it in a single closing paragraph.",
+      "version": "1.0.0",
+      "author": {
+        "name": "yelban"
+      },
+      "category": "skill"
+    },
+    {
+      "name": "fable-explore",
+      "source": "./plugins/fable-explore",
+      "description": "Fable-based concept explorer — learn any field through parables. Picks a graduate-level concept from a user-specified domain, writes a literary fable that indirectly conveys it, then follows with a clear explanation. Supports difficulty levels, batch mode, interactive guess-first mode, multiple-choice quiz, cross-domain comparison, and story styles.",
+      "version": "1.0.0",
+      "author": {
+        "name": "yelban"
+      },
+      "category": "skill"
+    },
+    {
+      "name": "good-writing-zh",
+      "source": "./plugins/good-writing-zh",
+      "description": "中文好寫作指南：提升中文寫作品質與改寫既有文章。基於 Paul Graham、余光中、王鼎鈞的寫作智慧。三模式（深度／標準／保守），技術文件適用保守模式。建議與 humanizer-tw 串接使用。",
+      "version": "1.1.0",
+      "author": {
+        "name": "yelban"
+      },
+      "category": "skill"
+    },
+    {
+      "name": "humanizer-tw",
+      "source": "./plugins/humanizer-tw",
+      "description": "去除中文文字中的 AI 生成痕跡。針對中文 AI 寫作的獨特問題設計：時代開場白、連接詞濫用、互聯網黑話、翻譯腔、書面語過重、公式化結構、結尾套話、中國用語滲入。使文字更自然、更有人味、更像台灣人寫的。",
+      "version": "1.1.0",
+      "author": {
+        "name": "yelban"
+      },
+      "category": "skill"
+    }
+  ]
+}
