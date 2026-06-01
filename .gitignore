@@ -12,6 +12,7 @@ fable-econ-workspace/
 fable-explore-workspace/
 fable-econ/evals/
 fable-explore/evals/
+eval/
 
 # Local notes — un-ignore when ready to commit changes
 CLAUDE.md
