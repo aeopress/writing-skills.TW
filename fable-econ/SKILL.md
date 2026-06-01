@@ -12,6 +12,7 @@ description: >
   any field, use fable-explore instead.
 version: "1.4.0"
 user_invocable: true
+argument_hint: "[子領域，如 拍賣理論] [-3 連續三篇] [-i 互動猜題]"
 ---
 
 # Fable Econ — 經濟學寓言（Amanda Askell 原版）

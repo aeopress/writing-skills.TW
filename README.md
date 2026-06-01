@@ -9,7 +9,7 @@
 ## 工作流：三層串接
 
 ```
-原稿 ──► humanizer-tw ──► good-writing-zh ──► 成稿
+原稿 ──► humanizer-tw ──► good-writing-tw ──► 成稿
         （去 AI 味、       （氣口／錯落／
          去中國用語、       句尾／強動詞）
          文體感知）
@@ -19,7 +19,7 @@
                               （從零生成寓言）
 ```
 
-寫文章：兩支前後串接。LLM 倒出的稿子先 `humanizer-tw` 清掉 AI 味跟中國用語，再 `good-writing-zh` 打磨節奏跟句子。從零學新概念：`fable-econ` 或 `fable-explore` 讓 Claude 寫寓言給你看。
+寫文章：兩支前後串接。LLM 倒出的稿子先 `humanizer-tw` 清掉 AI 味跟中國用語，再 `good-writing-tw` 打磨節奏跟句子。從零學新概念：`fable-econ` 或 `fable-explore` 讓 Claude 寫寓言給你看。
 
 ---
 
@@ -54,7 +54,7 @@
 | Skill | 角色 | 何時用 | 來源 |
 |---|---|---|---|
 | **[humanizer-tw](humanizer-tw/)** | 去 AI 味 | 處理 LLM 倒出的文字 / 已 OpenCC `s2twp` 轉過的簡中翻譯 | 原創（[yelban/humanizer.tw](https://github.com/yelban/humanizer.tw)） |
-| **[good-writing-zh](good-writing/)** | 打磨節奏 | 已經乾淨但讀起來悶 / 想提升文筆 / 技術文件保守潤飾 | 整合 Paul Graham + 余光中 + 王鼎鈞 |
+| **[good-writing-tw](good-writing-tw/)** | 打磨節奏 | 已經乾淨但讀起來悶 / 想提升文筆 / 技術文件保守潤飾 | 整合 Paul Graham + 余光中 + 王鼎鈞 |
 | **[fable-econ](fable-econ/)** | 寓言生成（經濟學） | 想用 Amanda Askell 原版 prompt 學經濟學概念 | [Amanda Askell, 2025.3 X 貼文](https://x.com/AmandaAskell/status/1898862564718923837) |
 | **[fable-explore](fable-explore/)** | 寓言生成（任何領域） | 跨領域學概念、可調難度（國小～專家）／風格／模式 | [Amanda Askell, 2026.4 Newcomer Pod 訪談](https://www.youtube.com/watch?v=0GaKJ4Fp2x4) |
 
@@ -82,7 +82,7 @@ humanize 這段                  ← 自然語言
 
 ---
 
-## good-writing-zh — 打磨節奏
+## good-writing-tw — 打磨節奏
 
 **理論基底：** Paul Graham〈Good Writing〉「搖晃箱子」+ 余光中「弱動詞包裝病」+ 王鼎鈞「念得出口」。
 
@@ -124,14 +124,14 @@ humanize 這段                  ← 自然語言
 
 **觸發詞：**
 ```
-/good-writing                 ← 完整改寫
+/good-writing-tw              ← 完整改寫
 /潤稿
 讓文字更順 / 文筆 / 改寫 / rewrite
 技術文件潤飾                  ← 自動切保守模式
 conservative 模式
 ```
 
-完整理論見 [`good-writing/references/guide.md`](good-writing/references/guide.md)（含英文版 [`guide-en.md`](good-writing/docs/guide-en.md)）。
+完整理論見 [`good-writing-tw/references/guide.md`](good-writing-tw/references/guide.md)（含英文版 [`guide-en.md`](good-writing-tw/docs/guide-en.md)）。
 
 ---
 
@@ -172,22 +172,19 @@ Amanda Askell 在 X 上分享過一個她最愛的提示詞：讓 Claude 從某�
 
 ## Quick start
 
-需要 [Claude Code](https://claude.com/claude-code) CLI。
+需要 [Claude Code](https://claude.com/claude-code) CLI。在 Claude Code 裡執行以下 slash 指令：
 
-```bash
-# 1. clone
-git clone https://github.com/aeopress/writing-skills.TW.git ~/writing-skills.TW
+```text
+# 1. 加入本 marketplace
+/plugin marketplace add aeopress/writing-skills.TW
 
-# 2. symlink 想用的 skill 進 ~/.claude/skills/
-ln -s ~/writing-skills.TW/humanizer-tw  ~/.claude/skills/humanizer-tw
-ln -s ~/writing-skills.TW/good-writing  ~/.claude/skills/good-writing-zh
-ln -s ~/writing-skills.TW/fable-econ    ~/.claude/skills/fable-econ
-ln -s ~/writing-skills.TW/fable-explore ~/.claude/skills/fable-explore
+# 2. 一行安裝全部四支 skill
+/plugin install writing-skills@writing-skills-tw
 
-# 3. 重啟 Claude Code，輸入觸發詞
+# 3. 重啟 Claude Code（或 /reload-plugins），輸入觸發詞
 ```
 
-可以只 symlink 你要用的，不必全部。
+四支 skill（humanizer-tw、good-writing-tw、fable-econ、fable-explore）打包成單一 plugin，一次安裝完成。
 
 ---
 
@@ -211,7 +208,7 @@ ln -s ~/writing-skills.TW/fable-explore ~/.claude/skills/fable-explore
 ## 來源致謝
 
 - **humanizer-tw** 原創於 [yelban/humanizer.tw](https://github.com/yelban/humanizer.tw)，參考 [blader/humanizer](https://github.com/blader/humanizer) 與 [hardikpandya/stop-slop](https://github.com/hardikpandya/stop-slop) 的設計
-- **good-writing-zh** 整合 [Paul Graham〈Good Writing〉](http://www.paulgraham.com/goodwriting.html)、余光中《怎樣改進英式中文》、王鼎鈞《文學種籽》
+- **good-writing-tw** 整合 [Paul Graham〈Good Writing〉](http://www.paulgraham.com/goodwriting.html)、余光中《怎樣改進英式中文》、王鼎鈞《文學種籽》
 - **fable-econ** 重現 [@AmandaAskell/1898862564718923837](https://x.com/AmandaAskell/status/1898862564718923837)（2025.3）
 - **fable-explore** 延伸自 [Amanda Askell on Newcomer Pod](https://www.youtube.com/watch?v=0GaKJ4Fp2x4)（2026.4）「The Parable Prompt to Try With Claude」章節
 

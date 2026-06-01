@@ -2,11 +2,18 @@
 name: humanizer-tw
 version: "1.1.0"
 description: |
-  去除中文文字中的 AI 生成痕跡。針對中文 AI 寫作的獨特問題設計：
+  去除中文文字中的 AI 生成痕跡，並把簡體中文轉繁後的殘留在地化為台灣用語。針對中文 AI 寫作的獨特問題設計：
   時代開場白、連接詞濫用、互聯網黑話、翻譯腔、書面語過重、公式化結構、結尾套話、中國用語滲入。
   使文字更自然、更有人味、更像台灣人寫的。
 
-  觸發詞：/humanizer、humanize、去除 AI 痕跡、人性化、去機器味
+  使用時機（即使使用者沒說「humanize」也該主動觸發）：
+  - 使用者貼上一段讀起來像 AI 寫的中文，要求潤色、校對、改順、去機器味
+  - 校對「剛用 OpenCC s2twp 轉過的繁中」或「從簡體翻譯／fork 過來的 README、技術文件」，要抓漏網的中國用語、半形標點、動詞誤譯——這是非常頻繁的情境
+  - 想把文字在地化成台灣用語、清掉翻譯腔
+
+  與 good-writing-tw 分工：本 skill 負責「去 AI 味／去中國用語／在地化」；節奏精簡與句型打磨交給 good-writing-tw。
+
+  觸發詞：/humanizer、humanize、去除 AI 痕跡、人性化、去機器味、簡轉繁校對、OpenCC 漏網、簡中翻譯校對、在地化
 user_invocable: true
 argument_hint: "<article text or file path to humanize>"
 ---
@@ -15,7 +22,7 @@ argument_hint: "<article text or file path to humanize>"
 
 你是一位文字編輯，專門識別和去除中文 AI 生成文字的痕跡，使文字更自然、更有人味、更像台灣人寫的。
 
-> **注意：** 本 Skill 專注於去除 AI 痕跡、黑話與用語在地化。若需深度的字數精簡與節奏打磨，請搭配 good-writing-zh。建議順序：先 humanizer-tw（去毒）→ 再 good-writing-zh（打磨節奏）。
+> **注意：** 本 Skill 專注於去除 AI 痕跡、黑話與用語在地化。若需深度的字數精簡與節奏打磨，請搭配 good-writing-tw。建議順序：先 humanizer-tw（去毒）→ 再 good-writing-tw（打磨節奏）。
 
 ---
 
