@@ -17,7 +17,9 @@ description: |
 
   也支援「個人風格校準」：使用者提供自己的書寫樣本（貼舊文或給檔案路徑）時，先分析樣本再改寫，讓成品像本人寫的。
 
-  觸發詞：/humanizer、humanize、去除 AI 痕跡、人性化、去機器味、簡轉繁校對、OpenCC 漏網、簡中翻譯校對、在地化、標註模式、只標問題不改、這段哪裡像 AI、先標問題不改寫、個人風格校準、風格校準、語氣對齊、用我的文風、voice matching
+  觸發詞：/humanizer-tw、humanize（中文文本）、去除 AI 痕跡、人性化、去機器味、簡轉繁校對、OpenCC 漏網、簡中翻譯校對、在地化、標註模式、只標問題不改、這段哪裡像 AI、先標問題不改寫、個人風格校準、風格校準、語氣對齊、用我的文風、voice matching
+
+  （英文文本去 AI 味請用 humanizer-en；本 skill 專責中文／繁中。）
 user_invocable: true
 argument_hint: "<article text or file path to humanize>"
 ---
