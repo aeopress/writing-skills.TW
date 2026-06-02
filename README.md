@@ -1,6 +1,6 @@
 # writing-skills.TW
 
-![writing-skills.TW — 繁體中文寫作工具鏈：去 AI 味 → 打磨節奏 → 寓言學習](.assets/social-preview.jpg)
+![writing-skills.TW — 繁體中文寫作工具鏈：去 AI 味 → 斟酌節奏 → 寓言學習](.assets/social-preview.jpg)
 
 > 給 Claude Code 的繁體中文（台灣）寫作工具鏈：**去 AI 味 → 打磨節奏 → 用寓言學概念**。
 
