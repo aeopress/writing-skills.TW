@@ -2,7 +2,7 @@
 
 > 給 Claude Code 的繁體中文（台灣）寫作工具鏈：**去 AI 味 → 打磨節奏 → 用寓言學概念**。
 
-五支 skill，可串接成完整工作流，也可各自獨立用。主打台灣中文寫作場景（中國用語滲入、AI 寫作痕跡、技術文件不能亂改、用寓言學新領域），並附一支英文去 AI 味的 humanizer-en（fork 自 blader/humanizer）——一次安裝，中英雙語都能去 AI 味。
+六支 skill，可串接成完整工作流，也可各自獨立用。主打台灣中文寫作場景（中國用語滲入、AI 寫作痕跡、技術文件不能亂改、用寓言學新領域），並附英文去 AI 味的 humanizer-en（fork 自 blader/humanizer）與 `/humanizer` 語言路由入口（自動判中英）——一次安裝，中英雙語都能去 AI 味。
 
 ---
 
@@ -49,10 +49,11 @@
 
 ---
 
-## 五支 skill
+## 六支 skill
 
 | Skill | 角色 | 何時用 | 來源 |
 |---|---|---|---|
+| **[humanizer](humanizer/)** | 語言路由入口 | 打 `/humanizer`、不想指定語言、或中英混合——自動判語言轉到 -tw / -en | 本 repo |
 | **[humanizer-tw](humanizer-tw/)** | 去 AI 味（中文） | 處理 LLM 倒出的中文 / 已 OpenCC `s2twp` 轉過的簡中翻譯 | 原創（[yelban/humanizer.tw](https://github.com/yelban/humanizer.tw)） |
 | **[humanizer-en](humanizer-en/)** | 去 AI 味（英文） | 處理英文 AI 生成文字（30 patterns、voice calibration） | fork 自 [blader/humanizer](https://github.com/blader/humanizer)（synced v2.7.0） |
 | **[good-writing-tw](good-writing-tw/)** | 打磨節奏 | 已經乾淨但讀起來悶 / 想提升文筆 / 技術文件保守潤飾 | 整合 Paul Graham + 余光中 + 王鼎鈞 |
@@ -202,13 +203,13 @@ Amanda Askell 在 X 上分享過一個她最愛的提示詞：讓 Claude 從某�
 # 1. 加入本 marketplace
 /plugin marketplace add aeopress/writing-skills.TW
 
-# 2. 一行安裝全部五支 skill
+# 2. 一行安裝全部六支 skill
 /plugin install writing-skills@writing-skills-tw
 
 # 3. 重啟 Claude Code（或 /reload-plugins），輸入觸發詞
 ```
 
-五支 skill（humanizer-tw、humanizer-en、good-writing-tw、fable-econ、fable-explore）打包成單一 plugin，一次安裝完成。
+六支 skill（humanizer 路由入口、humanizer-tw、humanizer-en、good-writing-tw、fable-econ、fable-explore）打包成單一 plugin，一次安裝完成。
 
 ---
 
@@ -222,7 +223,7 @@ Amanda Askell 在 X 上分享過一個她最愛的提示詞：讓 Claude 從某�
 > **你說：** `/humanizer` 然後貼上文字，或「幫我去 AI 味：〔貼文字〕」
 > **會發生：** 輸出三段——`<diagnosis>`（按類別列出抓到的 AI 痕跡）、`<rewrite>`（改寫稿）、`<changelog>`（變更摘要）。文體自動判斷：部落格全規則開，公文只去毒、不口語化。
 >
-> **中英自動分流：** 中文文字交給 humanizer-tw（在地化、OpenCC 漏網）；英文文字交給 humanizer-en（Wikipedia 30 patterns）。要指定就用 `/humanizer-tw` 或 `/humanizer-en`。
+> **中英自動分流：** 三種叫法都行——① 自然語言「去 AI 味」② `/humanizer`（語言路由入口，自動判中英）③ 直接指定 `/humanizer-tw`（中文：在地化、OpenCC 漏網）或 `/humanizer-en`（英文：Wikipedia 30 patterns）。判語言看「要被改的文字」，不是你下指令的語言。
 
 ### 情境 2：fork 簡中專案，清 OpenCC 殘留
 翻譯或 fork 簡中 repo 的 README、文件，`opencc s2twp` 轉完還有漏網。
