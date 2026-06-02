@@ -8,19 +8,24 @@
 
 ---
 
-## 工作流：兩段串接
+## 工作流
 
 ```mermaid
 flowchart LR
     classDef raw fill:#374151,color:#fff,stroke:#9ca3af,stroke-width:1px;
+    classDef route fill:#6d28d9,color:#fff,stroke:#c4b5fd,stroke-width:2px;
     classDef hum fill:#b45309,color:#fff,stroke:#fcd34d,stroke-width:2px;
     classDef gw fill:#047857,color:#fff,stroke:#6ee7b7,stroke-width:2px;
     classDef done fill:#1d4ed8,color:#fff,stroke:#93c5fd,stroke-width:2px;
 
-    A["原稿"]:::raw --> B["humanizer-tw<br/>去 AI 味 · 去中國用語 · 文體感知"]:::hum --> C["good-writing-tw<br/>氣口 · 錯落 · 句尾 · 強動詞"]:::gw --> D["成稿"]:::done
+    A["原稿"]:::raw --> H["humanizer<br/>語言路由 · 自動判中英"]:::route
+    H -->|中文| TW["humanizer-tw<br/>去 AI 味 · 去中國用語 · 文體感知"]:::hum
+    H -->|英文| EN["humanizer-en<br/>去 AI 味 · 30 patterns"]:::hum
+    TW --> GW["good-writing-tw<br/>氣口 · 錯落 · 句尾 · 強動詞"]:::gw --> D["成稿"]:::done
+    EN --> D
 ```
 
-寫文章就這兩支前後串接：LLM 倒出的稿子先用 `humanizer-tw` 清掉 AI 味跟中國用語，再用 `good-writing-tw` 琢磨節奏跟句子。
+從 `humanizer` 路由入口進，自動判語言：**中文**走 `humanizer-tw` 去 AI 味，再接 `good-writing-tw` 琢磨節奏；**英文**走 `humanizer-en`（30 patterns）。`good-writing-tw` 是中文節奏琢磨、只在中文線，英文到 `humanizer-en` 即完成。
 
 > `fable-econ`／`fable-explore` 不在這條串接流程裡——它們是另一種獨立用途：從零用寓言學新概念（見下方專節）。
 
