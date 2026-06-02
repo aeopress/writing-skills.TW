@@ -8,20 +8,21 @@
 
 ---
 
-## 工作流：三層串接
+## 工作流：兩段串接
 
+```mermaid
+flowchart LR
+    classDef raw fill:#374151,color:#fff,stroke:#9ca3af,stroke-width:1px;
+    classDef hum fill:#b45309,color:#fff,stroke:#fcd34d,stroke-width:2px;
+    classDef gw fill:#047857,color:#fff,stroke:#6ee7b7,stroke-width:2px;
+    classDef done fill:#1d4ed8,color:#fff,stroke:#93c5fd,stroke-width:2px;
+
+    A["原稿"]:::raw --> B["humanizer-tw<br/>去 AI 味 · 去中國用語 · 文體感知"]:::hum --> C["good-writing-tw<br/>氣口 · 錯落 · 句尾 · 強動詞"]:::gw --> D["成稿"]:::done
 ```
-原稿 ──► humanizer-tw ──► good-writing-tw ──► 成稿
-        （去 AI 味、       （氣口／錯落／
-         去中國用語、       句尾／強動詞）
-         文體感知）
 
-                                fable-econ
-                                fable-explore
-                              （從零生成寓言）
-```
+寫文章就這兩支前後串接：LLM 倒出的稿子先用 `humanizer-tw` 清掉 AI 味跟中國用語，再用 `good-writing-tw` 琢磨節奏跟句子。
 
-寫文章：兩支前後串接。LLM 倒出的稿子先 `humanizer-tw` 清掉 AI 味跟中國用語，再 `good-writing-tw` 琢磨節奏跟句子。從零學新概念：`fable-econ` 或 `fable-explore` 讓 Claude 寫寓言給你看。
+> `fable-econ`／`fable-explore` 不在這條串接流程裡——它們是另一種獨立用途：從零用寓言學新概念（見下方專節）。
 
 ---
 
