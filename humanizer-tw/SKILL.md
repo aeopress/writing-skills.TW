@@ -185,4 +185,4 @@ argument_hint: "<article text or file path to humanize>"
 
 ---
 
-*改寫範例見 [references/examples.md](references/examples.md)。本技能參考 [blader/humanizer](https://github.com/blader/humanizer)、[hardikpandya/stop-slop](https://github.com/hardikpandya/stop-slop)。*
+*改寫範例見 [references/examples.md](references/examples.md)。非正式文體「刪乾淨之後怎麼更像人」（含思考痕跡／猶豫感，限非正式、不捏造事實）見 [references/positive-style-zh.md](references/positive-style-zh.md)。測試集與評估方法見 [references/benchmark.md](references/benchmark.md)。本技能參考 [blader/humanizer](https://github.com/blader/humanizer)、[hardikpandya/stop-slop](https://github.com/hardikpandya/stop-slop)。*
