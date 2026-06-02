@@ -70,7 +70,7 @@ flowchart TD
 
 ---
 
-## humanizer-tw — 去 AI 味
+## humanizer-tw 去 AI 味
 
 **罕見設計：**
 
@@ -97,7 +97,7 @@ humanize 這段                  ← 自然語言
 
 ---
 
-## humanizer-en — 去 AI 味（英文）
+## humanizer-en 去 AI 味（英文）
 
 處理**英文** AI 生成文字的姊妹技能，fork 自 [blader/humanizer](https://github.com/blader/humanizer)（Siqi Chen，MIT），synced 上游 **v2.7.0**，pattern 內容逐字保留，僅將 `name` 由 `humanizer` 改為 `humanizer-en` 以與 humanizer-tw 對稱。
 
@@ -115,7 +115,7 @@ humanize this (English)        ← 自然語言（英文輸入自動路由到這
 
 ---
 
-## good-writing-tw — 琢磨節奏
+## good-writing-tw 琢磨節奏
 
 **理論基底：** Paul Graham〈Good Writing〉「搖晃箱子」+ 余光中「弱動詞包裝病」+ 王鼎鈞「念得出口」。
 
@@ -168,7 +168,7 @@ conservative 模式
 
 ---
 
-## fable-econ + fable-explore — 用寓言學概念
+## fable-econ + fable-explore 用寓言學概念
 
 Amanda Askell 在 X 上分享過一個她最愛的提示詞：讓 Claude 從某學科挑一個小眾原理，寫成 3 段故事，最後一段才揭曉原理名稱。她說這些「academic allegories」變成她取代滑社群媒體的健康儀式。
 
