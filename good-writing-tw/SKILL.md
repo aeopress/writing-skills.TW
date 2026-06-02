@@ -19,7 +19,7 @@ argument_hint: "<article text or file path to rewrite>"
 
 # 中文好寫作
 
-> **注意：** 本 Skill 專注於句型結構精簡與節奏打磨。若需處理 AI 生成痕跡、翻譯腔與中國用語，請搭配 humanizer-tw。建議順序：先 humanizer-tw（去機器味）→ 再 good-writing-tw（打磨節奏）。
+> **注意：** 本 Skill 專注於句型結構精簡與節奏琢磨。若需處理 AI 生成痕跡、翻譯腔與中國用語，請搭配 humanizer-tw。建議順序：先 humanizer-tw（去機器味）→ 再 good-writing-tw（琢磨節奏）。
 
 ---
 

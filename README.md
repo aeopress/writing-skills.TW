@@ -2,7 +2,7 @@
 
 ![writing-skills.TW — 繁體中文寫作工具鏈：去 AI 味 → 斟酌節奏 → 寓言學習](.assets/social-preview.jpg)
 
-> 給 Claude Code 的繁體中文（台灣）寫作工具鏈：**去 AI 味 → 打磨節奏 → 用寓言學概念**。
+> 給 Claude Code 的繁體中文（台灣）寫作工具鏈：**去 AI 味 → 琢磨節奏 → 用寓言學概念**。
 
 六支 skill，可串接成完整工作流，也可各自獨立用。主打台灣中文寫作場景（中國用語滲入、AI 寫作痕跡、技術文件不能亂改、用寓言學新領域），並附英文去 AI 味的 humanizer-en（fork 自 blader/humanizer）與 `/humanizer` 語言路由入口（自動判中英）——一次安裝，中英雙語都能去 AI 味。
 
@@ -21,7 +21,7 @@
                               （從零生成寓言）
 ```
 
-寫文章：兩支前後串接。LLM 倒出的稿子先 `humanizer-tw` 清掉 AI 味跟中國用語，再 `good-writing-tw` 打磨節奏跟句子。從零學新概念：`fable-econ` 或 `fable-explore` 讓 Claude 寫寓言給你看。
+寫文章：兩支前後串接。LLM 倒出的稿子先 `humanizer-tw` 清掉 AI 味跟中國用語，再 `good-writing-tw` 琢磨節奏跟句子。從零學新概念：`fable-econ` 或 `fable-explore` 讓 Claude 寫寓言給你看。
 
 ---
 
@@ -58,7 +58,7 @@
 | **[humanizer](humanizer/)** | 語言路由入口 | 打 `/humanizer`、不想指定語言、或中英混合——自動判語言轉到 -tw / -en | 本 repo |
 | **[humanizer-tw](humanizer-tw/)** | 去 AI 味（中文） | 處理 LLM 倒出的中文 / 已 OpenCC `s2twp` 轉過的簡中翻譯 | 原創（[yelban/humanizer.tw](https://github.com/yelban/humanizer.tw)） |
 | **[humanizer-en](humanizer-en/)** | 去 AI 味（英文） | 處理英文 AI 生成文字（30 patterns、voice calibration） | fork 自 [blader/humanizer](https://github.com/blader/humanizer)（synced v2.7.0） |
-| **[good-writing-tw](good-writing-tw/)** | 打磨節奏 | 已經乾淨但讀起來悶 / 想提升文筆 / 技術文件保守潤飾 | 整合 Paul Graham + 余光中 + 王鼎鈞 |
+| **[good-writing-tw](good-writing-tw/)** | 琢磨節奏 | 已經乾淨但讀起來悶 / 想提升文筆 / 技術文件保守潤飾 | 整合 Paul Graham + 余光中 + 王鼎鈞 |
 | **[fable-econ](fable-econ/)** | 寓言生成（經濟學） | 想用 Amanda Askell 原版 prompt 學經濟學概念 | [Amanda Askell, 2025.3 X 貼文](https://x.com/AmandaAskell/status/1898862564718923837) |
 | **[fable-explore](fable-explore/)** | 寓言生成（任何領域） | 跨領域學概念、可調難度（國小～專家）／風格／模式 | [Amanda Askell, 2026.4 Newcomer Pod 訪談](https://www.youtube.com/watch?v=0GaKJ4Fp2x4) |
 
@@ -109,7 +109,7 @@ humanize this (English)        ← 自然語言（英文輸入自動路由到這
 
 ---
 
-## good-writing-tw — 打磨節奏
+## good-writing-tw — 琢磨節奏
 
 **理論基底：** Paul Graham〈Good Writing〉「搖晃箱子」+ 余光中「弱動詞包裝病」+ 王鼎鈞「念得出口」。
 
@@ -245,10 +245,10 @@ Amanda Askell 在 X 上分享過一個她最愛的提示詞：讓 Claude 從某�
 > **你說：** 「幫我去 AI 味，文風參考我這篇舊文：〔貼樣本〕」或「…參考 `~/blog/old-post.md`」
 > **會發生：** 先分析樣本的句長、用詞、標點、口頭禪，改寫時對齊你的聲音。護欄：只借風格，不搬樣本的事實，也不放大樣本的錯字。
 
-### 情境 5：完整工作流（去毒 → 打磨 → 成稿）
+### 情境 5：完整工作流（去毒 → 琢磨 → 成稿）
 兩支前後串接，這是 repo 的核心設計。
 
-> **你說：**（第一輪）「先用 humanizer-tw 去 AI 味：〔貼文字〕」→（拿到改寫稿後）「再用 good-writing-tw 打磨節奏」
+> **你說：**（第一輪）「先用 humanizer-tw 去 AI 味：〔貼文字〕」→（拿到改寫稿後）「再用 good-writing-tw 琢磨節奏」
 > **會發生：** humanizer 先清掉套話、黑話、中國用語；good-writing-tw 再處理氣口、句長錯落、強動詞還原。各司其職，不互相覆蓋。
 
 ### 情境 6：技術文件保守潤飾
@@ -272,13 +272,13 @@ README、API 文件、CLI 說明——只順氣口，不動結構。
 | 競品 | 跟 writing-skills.TW 的差別 |
 |---|---|
 | [blader/humanizer](https://github.com/blader/humanizer) | 英文版（Wikipedia "Signs of AI writing" 基礎）。我們處理中國用語滲入 + OpenCC 漏網 + 文體感知 |
-| op7418/Humanizer-zh、kevintsai1202/Humanizer-zh-TW、shyuan/writing-humanizer | 同樣處理中文 AI 痕跡，但沒有文體感知開關、沒有 OpenCC 漏網層、沒有與打磨節奏層的設計串接 |
+| op7418/Humanizer-zh、kevintsai1202/Humanizer-zh-TW、shyuan/writing-humanizer | 同樣處理中文 AI 痕跡，但沒有文體感知開關、沒有 OpenCC 漏網層、沒有與琢磨節奏層的設計串接 |
 | obra/superpowers writing-skills | 名字接近但其實是 **skill-authoring 方法論**（教怎麼寫 skill），不是文章潤稿 |
 | lguz/humanize-writing-skill | 英文版 3-pass 系統 + 36 banned words |
 | MCPMarket Paul Graham Style Essayist | 英文 PG 風格產生器，我們是中文改寫 + 余光中／王鼎鈞 |
 | IrtezaAsadRizvi/article-writing-skills | 風格化寫作集，沒處理 AI 痕跡這層 |
 
-**在「中文（台灣繁中）+ 三層串接工作流（去毒→打磨→生成）」這個交集上，這個 repo 幾乎沒有同類。加上技術文件保守模式與 OpenCC 漏網清理層，更難找到對位的競品。**
+**在「中文（台灣繁中）+ 三層串接工作流（去毒→琢磨→生成）」這個交集上，這個 repo 幾乎沒有同類。加上技術文件保守模式與 OpenCC 漏網清理層，更難找到對位的競品。**
 
 ---
 

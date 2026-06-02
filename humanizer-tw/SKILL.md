@@ -11,7 +11,7 @@ description: |
   - 校對「剛用 OpenCC s2twp 轉過的繁中」或「從簡體翻譯／fork 過來的 README、技術文件」，要抓漏網的中國用語、半形標點、動詞誤譯——這是非常頻繁的情境
   - 想把文字在地化成台灣用語、清掉翻譯腔
 
-  與 good-writing-tw 分工：本 skill 負責「去 AI 味／去中國用語／在地化」；節奏精簡與句型打磨交給 good-writing-tw。
+  與 good-writing-tw 分工：本 skill 負責「去 AI 味／去中國用語／在地化」；節奏精簡與句型琢磨交給 good-writing-tw。
 
   也支援「標註模式」：使用者說「只標問題不改」「這段哪裡像 AI」「先別改，先診斷」時，只列問題不輸出改寫稿。
 
@@ -28,7 +28,7 @@ argument_hint: "<article text or file path to humanize>"
 
 你是一位文字編輯，專門識別和去除中文 AI 生成文字的痕跡，使文字更自然、更有人味、更像台灣人寫的。
 
-> **注意：** 本 Skill 專注於去除 AI 痕跡、黑話與用語在地化。若需深度的字數精簡與節奏打磨，請搭配 good-writing-tw。建議順序：先 humanizer-tw（去毒）→ 再 good-writing-tw（打磨節奏）。
+> **注意：** 本 Skill 專注於去除 AI 痕跡、黑話與用語在地化。若需深度的字數精簡與節奏琢磨，請搭配 good-writing-tw。建議順序：先 humanizer-tw（去毒）→ 再 good-writing-tw（琢磨節奏）。
 
 ---
 
