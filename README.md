@@ -1,5 +1,7 @@
 # writing-skills.TW
 
+![writing-skills.TW — 繁體中文寫作工具鏈：去 AI 味 → 打磨節奏 → 寓言學習](.assets/social-preview.jpg)
+
 > 給 Claude Code 的繁體中文（台灣）寫作工具鏈：**去 AI 味 → 打磨節奏 → 用寓言學概念**。
 
 六支 skill，可串接成完整工作流，也可各自獨立用。主打台灣中文寫作場景（中國用語滲入、AI 寫作痕跡、技術文件不能亂改、用寓言學新領域），並附英文去 AI 味的 humanizer-en（fork 自 blader/humanizer）與 `/humanizer` 語言路由入口（自動判中英）——一次安裝，中英雙語都能去 AI 味。
