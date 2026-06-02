@@ -11,7 +11,7 @@
 ## 工作流
 
 ```mermaid
-flowchart LR
+flowchart TD
     classDef raw fill:#374151,color:#fff,stroke:#9ca3af,stroke-width:1px;
     classDef route fill:#6d28d9,color:#fff,stroke:#c4b5fd,stroke-width:2px;
     classDef hum fill:#b45309,color:#fff,stroke:#fcd34d,stroke-width:2px;
