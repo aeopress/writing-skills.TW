@@ -6,6 +6,8 @@
 
 六支 skill，可串接成完整工作流，也可各自獨立用。主打台灣中文寫作場景（中國用語滲入、AI 寫作痕跡、技術文件不能亂改、用寓言學新領域），並附英文去 AI 味的 humanizer-en（fork 自 blader/humanizer）與 `/humanizer` 語言路由入口（自動判中英）——一次安裝，中英雙語都能去 AI 味。
 
+**獨特定位：** 「台灣繁中 ＋ 去毒→琢磨→生成三層串接」這個交集，目前幾乎找不到同類；再加上技術文件保守模式、OpenCC 漏網清理層，更少有人湊齊。而且不只是功能多——下方有跟 5 支同類 skill 的實測對打，humanizer-tw 的誤殺率只有它們的 1/4–1/5。
+
 ---
 
 ## 工作流
@@ -35,7 +37,7 @@ flowchart TD
 
 下面是一段你會在 ChatGPT 倒出、或從簡中內容農場 fork 來的中文裡看到的典型開頭——時代開場、互聯網黑話、中國用語、雞湯結尾樣樣有。
 
-> **下面的「改寫後」是直接把左欄丟給 humanizer-tw（Opus）跑出來的真實輸出，未經事後潤飾、也沒有添加原文沒有的內容**——保真改寫本來就是這支 skill 的硬規則。
+**這段是真跑出來的：** 下面的「改寫後」是直接把「改寫前」丟給 humanizer-tw（Opus）的真實輸出，未經潤飾、沒有添加原文沒有的內容——保真改寫是這支 skill 的硬規則。
 
 **改寫前：**
 
@@ -57,6 +59,24 @@ flowchart TD
 | **不誤殺** | **優化**（合法台灣詞） | **保留**（沒改掉） |
 
 最後一列正是上面實測 8% 誤殺率的體現：「優化」是台灣正常用語，humanizer-tw 留著不動，只化解「全面優化」的套話感。整套規則見 [humanizer-tw](humanizer-tw/SKILL.md)。
+
+---
+
+## Quick start
+
+需要 [Claude Code](https://claude.com/claude-code) CLI。在 Claude Code 裡執行以下 slash 指令：
+
+```text
+# 1. 加入本 marketplace
+/plugin marketplace add aeopress/writing-skills.TW
+
+# 2. 一行安裝全部六支 skill
+/plugin install writing-skills@writing-skills-tw
+
+# 3. 重啟 Claude Code（或 /reload-plugins），輸入觸發詞
+```
+
+六支 skill 打包成單一 plugin，一次安裝完成。
 
 ---
 
@@ -208,24 +228,6 @@ Amanda Askell 在 X 上分享過一個她最愛的提示詞：讓 Claude 從某�
 
 ---
 
-## Quick start
-
-需要 [Claude Code](https://claude.com/claude-code) CLI。在 Claude Code 裡執行以下 slash 指令：
-
-```text
-# 1. 加入本 marketplace
-/plugin marketplace add aeopress/writing-skills.TW
-
-# 2. 一行安裝全部六支 skill
-/plugin install writing-skills@writing-skills-tw
-
-# 3. 重啟 Claude Code（或 /reload-plugins），輸入觸發詞
-```
-
-六支 skill（humanizer 路由入口、humanizer-tw、humanizer-en、good-writing-tw、fable-econ、fable-explore）打包成單一 plugin，一次安裝完成。
-
----
-
 ## 用法教學（端到端）
 
 安裝後直接在對話裡用自然語言或 slash 觸發。下面每個情境給「你說什麼 → 會發生什麼」。
@@ -283,13 +285,13 @@ README、API 文件、CLI 說明——只順氣口，不動結構。
 | 競品 | 跟 writing-skills.TW 的差別 |
 |---|---|
 | [blader/humanizer](https://github.com/blader/humanizer) | 英文版（Wikipedia "Signs of AI writing" 基礎）。我們處理中國用語滲入 + OpenCC 漏網 + 文體感知 |
-| op7418/Humanizer-zh、kevintsai1202/Humanizer-zh-TW、shyuan/writing-humanizer | 同樣處理中文 AI 痕跡，但沒有文體感知開關、沒有 OpenCC 漏網層、沒有與琢磨節奏層的設計串接 |
+| op7418/Humanizer-zh | 同樣處理中文 AI 痕跡，但沒有文體感知開關、沒有 OpenCC 漏網層、沒有與琢磨節奏層的設計串接 |
+| kevintsai1202/Humanizer-zh-TW | 同上；實測誤殺率 42%（見下方〈實測〉） |
+| shyuan/writing-humanizer | 同上；實測誤殺率 39%（見下方〈實測〉） |
 | obra/superpowers writing-skills | 名字接近但其實是 **skill-authoring 方法論**（教怎麼寫 skill），不是文章潤稿 |
 | lguz/humanize-writing-skill | 英文版 3-pass 系統 + 36 banned words |
 | MCPMarket Paul Graham Style Essayist | 英文 PG 風格產生器，我們是中文改寫 + 余光中／王鼎鈞 |
 | IrtezaAsadRizvi/article-writing-skills | 風格化寫作集，沒處理 AI 痕跡這層 |
-
-**在「中文（台灣繁中）+ 三層串接工作流（去毒→琢磨→生成）」這個交集上，這個 repo 幾乎沒有同類。加上技術文件保守模式與 OpenCC 漏網清理層，更難找到對位的競品。**
 
 ### 實測：去 AI 味大家都會，差別在「會不會誤殺」
 
@@ -318,7 +320,7 @@ README、API 文件、CLI 說明——只順氣口，不動結構。
 - **fable-econ** 重現 [@AmandaAskell/1898862564718923837](https://x.com/AmandaAskell/status/1898862564718923837)（2025.3）
 - **fable-explore** 延伸自 [Amanda Askell on Newcomer Pod](https://www.youtube.com/watch?v=0GaKJ4Fp2x4)（2026.4）「The Parable Prompt to Try With Claude」章節
 
-Anthropic 沒有官方背書本 repo——我（[@yelban](https://github.com/yelban)）把 Amanda 公開的 prompt 結構化成可重複觸發的 skill。
+Anthropic 沒有官方背書本 repo——本 repo 只是把 Amanda 公開的 prompt 結構化成可重複觸發的 skill。
 
 ---
 
