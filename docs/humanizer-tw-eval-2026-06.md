@@ -85,6 +85,21 @@ opus transform、judge=sonnet、126 筆、n3（mean ± std %）。第一欄為�
 - ① 噪聲預算靠質性判斷，未進 gold（二元 check 測不到）。
 - `build_report.py` 有 skill_id 覆蓋 bug（多個同名 results 互蓋）；本輪用獨立 id 規避。舊 `report_metrics.md` 為 sonnet／50 筆，保留未覆蓋。
 
+## 補記：2026-07 Fable 5 重驗
+
+skill 升至 v1.2.0（新增短句連發戲劇腔／金句公式／假坦率開場／臆測填空＋對應防誤殺 guard）後，gold 以 `build_gold.py` 擴充 `c11_newgen` 類別（4 正例＋4 陷阱例，共 134 筆），transform 改用 **Claude Fable 5**（`claude-fable-5`）、judge=sonnet、**n1** 重跑：
+
+| 指標 | Fable 5（134 筆，n1） | Opus 基準（126 筆，n3） |
+|---|---|---|
+| 總體 recall | 95.1% | 95% ± 0 |
+| 中國用語替換率 | 98% | 96% ± 2 |
+| **誤殺率 FP** | **6.4%** | **8% ± 1** |
+| 保守回歸率 | 0% | 0% |
+| 標點修正率 | 100% | 97% ± 4 |
+| c11_newgen recall | 100%（陷阱例 0 誤殺） | —（該類別本輪新增） |
+
+結論：低誤殺差異化在 Fable 5 上成立且更低；新規則有效、未引入新誤殺面。注意 n1 無 variance，與 Opus n3 數字比較時以「同量級」解讀即可；競品對打表未在 Fable 5 條件重跑。原始數據：`results_fable_full.json`、`results_fable_c11_smoke.json`。
+
 ## 七、重跑方式
 
 ```bash

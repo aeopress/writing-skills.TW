@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-07：新 tell 移植、上游 sync v2.8.2、Fable 5 重驗
+
+- **humanizer-tw v1.2.0**：從 blader v2.8.0–2.8.2 中文化三個新 tell（短句連發戲劇腔／金句公式／假坦率開場）＋臆測填空（類別十二）。**移植紀律：偵測規則與防誤殺 guard 必須同次落地**（guard 進 detection-guidance-zh.md；gold 同時加陷阱例）——已寫進 AGENTS.md。
+- **humanizer-en synced v2.8.2**（`compatibility: any-agent`）。同步一律腳本取上游 body 逐字替換，diff 驗證只剩 fork banner 差異；README／router 的 pattern 數（33）與版號字樣一起改。
+- **Fable 5 重驗**（gold 擴至 134 筆，含 c11_newgen 4 正例＋4 陷阱例；transform=`claude-fable-5`、n1）：recall 95.1%、**FP 6.4%**（Opus 基準 8%±1）、c11 recall 100% 零誤殺。競品表未在 Fable 條件重跑。補記在 docs/humanizer-tw-eval-2026-06.md。score.py 的 model 參數直通 claude CLI，傳完整 id `claude-fable-5` 即可，harness 不用改。
+- **frontmatter 連字號化**：官方文件（code.claude.com/docs skills，2026-07 查證）欄位是 `user-invocable`／`argument-hint`（連字號）；六支 skill 已全改，validate_structure.py 白名單新舊並容。description＋when_to_use 合計上限 1,536 字元（實測本 repo 最長 712，安全）。
+- **設計決策文件**：docs/design-no-scoring-rubric.md——為何不學 kevintsai／academic 的品質評分 rubric（單向改寫壓力、無保真維度；FP 42%／38% vs 本專案 8%）。未來有人提議加評分表先讀這份。
+- marketplace.json metadata.version → 1.4.0；新增 AGENTS.md（版本同步契約）。
+
+---
+
 ## humanizer-tw 評估與 humanizer-zh-academic 借鑑（2026-06）
 
 ### 結論
