@@ -13,8 +13,8 @@ description: >
   or "another" after a previous fable to continue exploring the same field within the
   same conversation. For economics-only with strict 3-paragraph structure, use fable-econ.
 version: "1.4.0"
-user_invocable: true
-argument_hint: "<領域> [難度，如 國中程度／最難的] [-i 猜題／-g 選擇題／-x 跨域／-s 風格]"
+user-invocable: true
+argument-hint: "<領域> [難度，如 國中程度／最難的] [-i 猜題／-g 選擇題／-x 跨域／-s 風格]"
 ---
 
 # Fable Explore — 寓言探索法

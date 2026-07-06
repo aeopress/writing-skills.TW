@@ -13,8 +13,8 @@ description: |
   技術文件（README、API 文件、CLI 說明）請使用保守模式（見下方模式三），避免改動結構化列舉與術語連綴。
 
   觸發詞：/good-writing-tw、/潤稿、good writing、潤稿、改寫、rewrite、文筆、讓文字更順、技術文件潤飾、conservative 模式
-user_invocable: true
-argument_hint: "<article text or file path to rewrite>"
+user-invocable: true
+argument-hint: "<article text or file path to rewrite>"
 ---
 
 # 中文好寫作
