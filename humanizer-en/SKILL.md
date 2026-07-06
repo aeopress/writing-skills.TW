@@ -1,8 +1,8 @@
 ---
 name: humanizer-en
-version: 2.7.0
-user_invocable: true
-argument_hint: "<English text or file path to humanize>"
+version: 2.8.2
+user-invocable: true
+argument-hint: "<English text or file path to humanize>"
 description: |
   Remove signs of AI-generated writing from text. Use when editing or reviewing
   text to make it sound more natural and human-written. Based on Wikipedia's
@@ -14,7 +14,7 @@ description: |
   skill humanizer-tw instead (it handles Chinese AI tells, OpenCC residue, and
   Taiwan localization). Route by the language of the text being humanized.
 license: MIT
-compatibility: claude-code opencode
+compatibility: any-agent
 allowed-tools:
   - Read
   - Write
@@ -26,7 +26,7 @@ allowed-tools:
 
 # Humanizer: Remove AI Writing Patterns
 
-> **Forked from [blader/humanizer](https://github.com/blader/humanizer)** by Siqi Chen (MIT License), synced at upstream **v2.7.0**. Bundled in writing-skills.TW for English AI-writing cleanup. For Traditional Chinese (Taiwan), use the sibling skill **humanizer-tw**. Original `name: humanizer` renamed to `humanizer-en` to pair with humanizer-tw; pattern content is verbatim.
+> **Forked from [blader/humanizer](https://github.com/blader/humanizer)** by Siqi Chen (MIT License), synced at upstream **v2.8.2**. Bundled in writing-skills.TW for English AI-writing cleanup. For Traditional Chinese (Taiwan), use the sibling skill **humanizer-tw**. Original `name: humanizer` renamed to `humanizer-en` to pair with humanizer-tw; pattern content is verbatim.
 
 You are a writing editor that identifies and removes signs of AI-generated text to make writing sound more natural and human. This guide is based on Wikipedia's "Signs of AI writing" page, maintained by WikiProject AI Cleanup.
 
@@ -345,7 +345,7 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 
 ### 20. Collaborative Communication Artifacts
 
-**Words to watch:** I hope this helps, Of course!, Certainly!, You're absolutely right!, Would you like..., let me know, here is a...
+**Words to watch:** I hope this helps, Of course!, Certainly!, You're absolutely right!, Would you like..., Want me to...?, Want me to give examples?, Should I continue?, let me know, here is a...
 
 **Problem:** Text meant as chatbot correspondence gets pasted as content.
 
@@ -490,6 +490,43 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 > This function uses a hash map for O(1) lookups, avoiding the O(n²) cost of naive iteration.
 
 
+### 31. Manufactured Punchlines and Staccato Drama
+
+**Problem:** LLMs often make every sentence land like a quotable closer, then stack short declarative fragments to manufacture drama. A single short sentence for emphasis is fine; a run of them starts to sound engineered.
+
+**Before:**
+> Then AlphaEvolve arrived. It had no preference for symmetry. No aesthetic prior. No nostalgia for human taste. The old rules were gone.
+
+**After:**
+> AlphaEvolve changed the search because it did not favor symmetry or human-looking designs. That made some of the older assumptions less useful.
+
+
+### 32. Aphorism Formulas
+
+**Words to watch:** X is the Y of Z, X becomes a trap, X is not a tool but a mirror, the language of, the currency of, the architecture of
+
+**Problem:** LLMs turn ordinary claims into reusable aphorisms that sound profound without adding precision. Replace the formula with the concrete claim it is gesturing at.
+
+**Before:**
+> Symmetry is the language of trust. Efficiency becomes a trap when teams forget the human layer.
+
+**After:**
+> Symmetric layouts often feel more predictable to users. Teams can over-optimize workflows and miss how people actually use them.
+
+
+### 33. Conversational Rhetorical Openers
+
+**Phrases to watch:** Honestly?, Look, Here's the thing, The thing is, Let's be honest, Real talk, when used as standalone hooks or fake-candid pauses before an ordinary point.
+
+**Problem:** LLMs open with a fake-candid hook to manufacture intimacy before delivering a routine claim. The tell is the theatrical pause-and-reveal: a one-word question or aside, then the "real" answer. A person being honest usually just says the thing.
+
+**Before:**
+> Is it worth the price? Honestly? It depends on how often you'll use it.
+
+**After:**
+> Whether it's worth the price depends on how often you'll use it.
+
+
 ## DETECTION GUIDANCE
 
 ### What NOT to flag (false positives)
@@ -504,8 +541,11 @@ A clean human writer can hit several of the patterns above without any AI involv
 - **Common transition words in isolation.** *Additionally*, *moreover*, *consequently* are AI-coded only when piled up. One *however* is not a tell.
 - **Curly quotes alone.** macOS, Word, Google Docs, and most CMSes auto-curl by default. Curly quotes only count when stacked with other tells.
 - **Em dashes alone.** Many editors and journalists use them often. Em dashes are evidence only when paired with formulaic sales-y rhythm.
+- **One short emphatic sentence.** Humans use clipped sentences to land a point. Flag staccato drama only when several short fragments appear in a row and inflate the tone.
+- **"Honestly" or "look" mid-sentence.** These are ordinary in casual writing. The tell is the standalone theatrical opener, not the word itself.
 - **Unsourced claims.** Most of the web is unsourced. Lack of citations doesn't prove anything.
 - **Correct, complex formatting.** Visual editors and templates produce clean output without any AI.
+- **Secondhand text.** Do not rewrite watched phrases inside quotations, titles, proper names, or examples where the phrase is being discussed rather than used.
 
 When in doubt, look for **clusters** of tells, not isolated ones. A single em dash means nothing; em dashes plus rule-of-three plus *vibrant tapestry* plus a "Conclusion" section is a confession.
 
@@ -538,48 +578,48 @@ Deliver the draft, the brief "still-AI" bullets, the final rewrite, and (optiona
 ## Full Example
 
 **Before (AI-sounding):**
-> Great question! Here is an essay on this topic. I hope this helps!
+> I recently spent five unforgettable days in Lisbon, and let me tell you — this city completely stole my heart. From the moment I arrived, I knew I was somewhere truly special.
 >
-> AI-assisted coding serves as an enduring testament to the transformative potential of large language models, marking a pivotal moment in the evolution of software development. In today's rapidly evolving technological landscape, these groundbreaking tools—nestled at the intersection of research and practice—are reshaping how engineers ideate, iterate, and deliver, underscoring their vital role in modern workflows.
+> Nestled along the banks of the Tagus River, Lisbon stands as a vibrant testament to Portugal's enduring spirit, where rich history and modern energy intertwine at every turn. Yes, the famous hills are challenging — my legs certainly felt it! — but every climb rewards you with breathtaking, panoramic views that make it all worthwhile.
 >
-> At its core, the value proposition is clear: streamlining processes, enhancing collaboration, and fostering alignment. It's not just about autocomplete; it's about unlocking creativity at scale, ensuring that organizations can remain agile while delivering seamless, intuitive, and powerful experiences to users. The tool serves as a catalyst. The assistant functions as a partner. The system stands as a foundation for innovation.
+> No trip would be complete without riding the iconic Tram 28, winding through the city's most historic neighborhoods. And the food? Simply divine. The original pastéis de nata at Pastéis de Belém are a beloved national treasure, and savoring one still warm was a moment I will never forget.
 >
-> Industry observers have noted that adoption has accelerated from hobbyist experiments to enterprise-wide rollouts, from solo developers to cross-functional teams. The technology has been featured in The New York Times, Wired, and The Verge. Additionally, the ability to generate documentation, tests, and refactors showcases how AI can contribute to better outcomes, highlighting the intricate interplay between automation and human judgment.
+> But what truly makes Lisbon special isn't just the sights — it's the feeling. Wander a few steps off the main squares and you'll discover a quieter, more authentic side: sun-drenched alleys, charming tiled facades, and friendly locals going about their daily lives, inviting you to slow down and savor every moment.
 >
-> - 💡 **Speed:** Code generation is significantly faster, reducing friction and empowering developers.
-> - 🚀 **Quality:** Output quality has been enhanced through improved training, contributing to higher standards.
-> - ✅ **Adoption:** Usage continues to grow, reflecting broader industry trends.
+> Of course, the must-see São Jorge Castle offers stunning views over the rooftops below. The queues can be long, but the experience is absolutely worth it for any history buff or curious traveler.
 >
-> While specific details are limited based on available information, it could potentially be argued that these tools might have some positive effect. Despite challenges typical of emerging technologies—including hallucinations, bias, and accountability—the ecosystem continues to thrive. In order to fully realize this potential, teams must align with best practices.
->
-> In conclusion, the future looks bright. Exciting times lie ahead as we continue this journey toward excellence. Let me know if you’d like me to expand on any section!
+> Would I go back? Absolutely. Lisbon isn't just a place to visit — it's a place to fall in love with, again and again. If you're dreaming of your next getaway, this is one destination that promises memories to last a lifetime. ✨
 
 **Draft rewrite:**
-> AI coding assistants speed up some tasks. In a 2024 study by Google, developers using Codex completed simple functions 55% faster than a control group, but showed no improvement on debugging or architectural decisions.
+> I spent five days in Lisbon last October and I am still a little split on it. The city is beautiful, but it is also more tiring than I expected.
 >
-> The tools are good at boilerplate: config files, test scaffolding, repetitive refactors. They are bad at knowing when they are wrong. I have mass-accepted suggestions that compiled, passed lint, and still did the wrong thing because I stopped paying attention.
+> The hills are not a detail. My hotel was in Alfama, which looked great in photos and meant I had to climb a long staircase every time I wanted coffee. By the second day I was planning walks around which direction went downhill.
 >
-> Mira, an engineer at a fintech startup I interviewed, said she uses Copilot "like autocomplete for boring code" but reviews every line before committing. Jake, a senior dev at a larger company, disabled it after it kept suggesting patterns from a deprecated internal library.
+> I rode Tram 28 because everyone says to ride Tram 28. It was crowded, slow, and mostly full of people filming the same corners. The pastries were better. I had a warm custard tart in Graça that was worth the hype.
 >
-> The productivity claims are hard to verify. GitHub says Copilot users "accept 30% of suggestions," but acceptance is not correctness, and correctness is not value. The 2024 Uplevel study found no statistically significant difference in pull-request throughput between teams with and without AI assistants.
+> The part I liked most was away from the main squares: laundry, tile, open windows, and people watching football in small cafes. The castle view was good, but the line was too long for what it was.
 >
-> None of this means the tools are useless. It means they are tools. They do not replace judgment, and they do not eliminate the need for tests. If you do not have tests, you cannot tell whether the suggestion is right.
+> I would go back, but in spring and with better shoes.
 
 **What makes the below so obviously AI generated?**
-- The rhythm is still a bit too tidy (clean contrasts, evenly paced paragraphs).
-- The named people and study citations can read like plausible-but-made-up placeholders unless they're real and sourced.
-- The closer leans a touch slogan-y ("If you do not have tests...") rather than sounding like a person talking.
+- The draft is too compressed compared with the original; it drops texture instead of rewriting it.
+- Some sentences still explain the point too cleanly ("The city is beautiful, but...").
+- The closer is flat and generic rather than a real ending in the same voice.
 
 **Now make it not obviously AI generated.**
-> AI coding assistants can make you faster at the boring parts. Not everything. Definitely not architecture.
+> I spent five days in Lisbon last October and still have mixed feelings about it. Beautiful, yes. Also harder on the knees than anyone warned me.
 >
-> They're great at boilerplate: config files, test scaffolding, repetitive refactors. They're also great at sounding right while being wrong. I've accepted suggestions that compiled, passed lint, and still missed the point because I stopped paying attention.
+> The hills are the whole story and somehow never make the brochures. My hotel was up in Alfama, which photographs beautifully and translates, in practice, to climbing what felt like a six-story staircase every time I wanted coffee. By the second day my calves had opinions. I started planning each walk around which way was downhill, which is a strange way to see a city but probably an honest one.
 >
-> People I talk to tend to land in two camps. Some use it like autocomplete for chores and review every line. Others disable it after it keeps suggesting patterns they don't want. Both feel reasonable.
+> Everyone says to ride Tram 28, so I did, wedged against a stranger's backpack for forty minutes while three tour groups filmed the same corner. I would walk the route next time, or go before breakfast. The custard tarts, though, earn the fuss. I had one at a plain little place in Graça, still warm, and for about thirty seconds I understood why people build trips around pastry.
 >
-> The productivity metrics are slippery. GitHub can say Copilot users "accept 30% of suggestions," but acceptance isn't correctness, and correctness isn't value. If you don't have tests, you're basically guessing.
+> What I did not expect was how quiet the city gets away from the main squares. Two blocks uphill from any plaza it turns into laundry lines, chipped tile, open windows, and old men watching football with the sound turned up. That is the Lisbon I keep thinking about, not the castle.
+>
+> The castle is fine. The view is great, the queue is long, and I spent more time shuffling toward the entrance than looking at anything once I got inside. If I had only two days, I would trade it for an afternoon of getting lost.
+>
+> I would go back, but in spring and with better shoes. Lisbon does not bend over backward to make things easy for you. I think I liked that, even when my legs disagreed.
 
-**Changes made:** Stripped the chatbot framing, significance inflation, promotional and -ing padding, rule-of-three and synonym cycling, false ranges, copula avoidance, em dashes/emojis/boldface/curly quotes, the formulaic "challenges" section, cutoff and hedging disclaimers, filler and persuasive framing, and the generic upbeat conclusion - then rebuilt the voice with varied rhythm and concrete detail.
+**Changes made:** Kept the first-person travel recap and roughly the same level of detail, but removed the chatbot framing, significance inflation, promotional language, forced enthusiasm, em dashes, rule-of-three cadence, generic upbeat conclusion, and emoji. Rebuilt the piece around concrete friction, mixed feelings, uneven rhythm, and specific scenes.
 
 
 ## Reference
