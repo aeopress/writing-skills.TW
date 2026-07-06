@@ -7,7 +7,7 @@
   },
   "metadata": {
     "description": "Yelban's Traditional Chinese (Taiwan) + English writing & fable-learning skills for Claude Code — humanizer (/humanizer language-routing entry that auto-detects zh/en), humanizer-tw (remove AI writing traces, 台灣繁中), humanizer-en (English AI-writing cleanup, forked from blader/humanizer), good-writing-tw (rewrite for Paul Graham / 余光中 / 王鼎鈞 style), fable-econ (Amanda Askell's economics fable), fable-explore (cross-domain fable concept explorer).",
-    "version": "1.4.0"
+    "version": "1.5.0"
   },
   "plugins": [
     {

@@ -100,6 +100,8 @@ skill 升至 v1.2.0（新增短句連發戲劇腔／金句公式／假坦率開�
 
 結論：低誤殺差異化在 Fable 5 上成立且更低；新規則有效、未引入新誤殺面。注意 n1 無 variance，與 Opus n3 數字比較時以「同量級」解讀即可；競品對打表未在 Fable 5 條件重跑。原始數據：`results_fable_full.json`、`results_fable_c11_smoke.json`。
 
+**觸發分流（第 2 層擴充，2026-07）**：`trigger_eval.py` 只測單一 skill 該不該觸發；新增 `route_eval.py`＋`route_set.json` 測「六支同場時路由給誰」——25 題（五族正例＋coding／翻譯／摘要負例＋曖昧題容忍集），sonnet n3 多數決：accept_rate **100%**、primary_rate 96%、NONE 特異度 **100%**，全題 3/3 一致票。「潤稿 vs 去 AI 味」的分工在 description 層成立，未調任何 description。原始數據：`results_route.json`。
+
 ## 七、重跑方式
 
 ```bash

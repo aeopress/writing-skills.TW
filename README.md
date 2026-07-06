@@ -168,6 +168,8 @@ humanize this (English)        ← 自然語言（英文輸入自動路由到這
 
 保守模式專門避免「把 README 結構化列舉改壞」的問題。連術語連綴例外都列出——副檔名列表「`.py .ts .js .go .rs`」即使字元計數長也不算違規（每個副檔名都是停頓點）。
 
+v1.2.0 起**完整模式也有煞車**：新增「防過度矯正」三條（作者刻意的長句／排比不算違規、不把全文改成同一種節奏、風格樣本優先於預設數字），以及「拆句 ≠ 連發造勢」cross-guard——與 humanizer-tw 的「短句連發戲劇腔」規則對齊，兩支串接不互打，也不會把上一步的個人風格校準蓋掉。
+
 **前後對比範例：**
 
 ```
@@ -201,6 +203,8 @@ Amanda Askell 在 X 上分享過一個她最愛的提示詞：讓 Claude 從某�
 
 - **fable-econ**：忠實重現 Amanda 2025.3 原版（鎖定經濟學、嚴格 3+1 結構）
 - **fable-explore**：延伸至任何領域、可調難度（國小～專家）、五種模式（批次／互動／選擇題／跨域／指定風格）
+
+兩支都內建生成護欄（v1.5.0）：揭曉段不收金句、故事不用短句連發造勢、不加「說到底，這是一個關於⋯⋯的故事」式假深刻結語——擋掉新一代模型寫故事最常見的生成痕跡。
 
 **hero 範例：** 兩家麵館的故事（資訊瀑布）
 
@@ -311,6 +315,8 @@ README、API 文件、CLI 說明——只順氣口，不動結構。
 > 完整 10 類別 recall、測試方法、可重跑的三層評估 harness：[`docs/humanizer-tw-eval-2026-06.md`](docs/humanizer-tw-eval-2026-06.md)。
 >
 > **2026-07 Fable 5 重驗：** 上表為 Opus transform 條件。換用 Claude Fable 5、gold 擴充至 134 筆（新增「新世代 tell」類別：短句連發戲劇腔／金句公式／假坦率開場／臆測填空）單輪重跑：recall **95%**、誤殺率 **6%**、新類別 recall 100%——低誤殺招牌在新一代模型上成立。為什麼不學競品的「品質評分 rubric」，見 [`docs/design-no-scoring-rubric.md`](docs/design-no-scoring-rubric.md)。
+>
+> **觸發分流實測（2026-07）：** 六支 skill 同場的路由測試（25 題、sonnet、n3）：容忍集內 **100%**、設計正解 96%、coding 語境（`rewrite this function` 之類）**零誤觸**——「潤稿」歸 good-writing-tw、「去 AI 味」歸 humanizer-tw，姊妹 skill 不互搶。
 
 ---
 

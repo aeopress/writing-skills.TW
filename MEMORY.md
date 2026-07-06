@@ -13,6 +13,14 @@
 - **設計決策文件**：docs/design-no-scoring-rubric.md——為何不學 kevintsai／academic 的品質評分 rubric（單向改寫壓力、無保真維度；FP 42%／38% vs 本專案 8%）。未來有人提議加評分表先讀這份。
 - marketplace.json metadata.version → 1.4.0；新增 AGENTS.md（版本同步契約）。
 
+## 2026-07（第二輪）：非 humanizer 三支的 Fable 5 適配
+
+- **fable-econ／fable-explore v1.5.0**：失敗模式清單補新世代 slop 生成護欄（揭曉段收金句、短句連發造勢、假深刻結語）。不能靠 humanizer-tw 模式二兜底——skill 沒被觸發就不在 context，生成紀律必須寫在生成 skill 本體。
+- **good-writing-tw v1.2.0**：①「拆句 ≠ 連發造勢」cross-guard（v1.2.0 的 humanizer-tw 新增短句連發規則後，兩支串接會互打，界線=因果清晰 vs 堆疊語勢）；② 新增「防過度矯正」節＋檢查清單第 8 項＋輸出前雙向回掃——它的硬數字規則（氣口 15-20 字等）原本零煞車，與 design-no-scoring-rubric.md 分析的同型風險；③ 風格樣本優先於預設數字（保住 humanizer-tw voice calibration 的傳遞）。
+- **route_eval.py＋route_set.json**（evals/，本地）：六支分流測試（25 題、accept 容忍集設計、NONE 負例）。sonnet n3 實測：accept 100%／primary 96%／NONE 特異度 100%，全題 3/3 一致——「潤稿→good-writing-tw、去 AI 味→humanizer-tw」分工在 description 層已成立，coding rewrite 零誤觸，**description 不需調**。改任何 description 後重跑此測試（已寫進 AGENTS.md）。
+- 觀察項（未動）：fable 兩支與 humanizer-tw 本體 8k+ 字，超過 v2.1.x compaction 5,000 token 重附上限；標竿範例移 references/ 會犧牲生成品質（按需載入不保證被讀），暫不瘦身，長對話品質衰退時再議。
+- marketplace.json → 1.5.0。
+
 ---
 
 ## humanizer-tw 評估與 humanizer-zh-academic 借鑑（2026-06）

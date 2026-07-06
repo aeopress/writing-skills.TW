@@ -48,6 +48,7 @@
 
 - gold 語料一律改 `build_gold.py` 再重跑產出，**勿直接編輯 gold.jsonl**（有 `validate()` 把關）。
 - 動了偵測／防誤殺規則 → 至少跑對應類別的 smoke；動核心規則 → 跑 full。指標以 **false_positive_rate** 為北極星，recall 為底線。
+- 動了任何 skill 的 `description`（觸發面）→ 跑 `route_eval.py`（六支分流測試，25 題）確認姊妹 skill 沒有互搶、coding 語境不誤觸。
 - 方法與最近一輪數字見 `docs/humanizer-tw-eval-2026-06.md`。
 
 ## Frontmatter 慣例（Claude Code v2.1.x）
