@@ -22,12 +22,12 @@ flowchart TD
 
     A["原稿"]:::raw --> H["humanizer<br/>語言路由 · 自動判中英"]:::route
     H -->|中文| TW["humanizer-tw<br/>去 AI 味 · 去中國用語 · 文體感知"]:::hum
-    H -->|英文| EN["humanizer-en<br/>去 AI 味 · 33 patterns"]:::hum
+    H -->|英文| EN["humanizer-en<br/>去 AI 味 · 36 patterns"]:::hum
     TW --> GW["good-writing-tw<br/>氣口 · 錯落 · 句尾 · 強動詞"]:::gw --> D["成稿"]:::done
     EN --> D
 ```
 
-從 `humanizer` 路由入口進，自動判語言：**中文**走 `humanizer-tw` 去 AI 味，再接 `good-writing-tw` 琢磨節奏；**英文**走 `humanizer-en`（33 patterns）。`good-writing-tw` 是中文節奏琢磨、只在中文線，英文到 `humanizer-en` 即完成。
+從 `humanizer` 路由入口進，自動判語言：**中文**走 `humanizer-tw` 去 AI 味，再接 `good-writing-tw` 琢磨節奏；**英文**走 `humanizer-en`（36 patterns）。`good-writing-tw` 是中文節奏琢磨、只在中文線，英文到 `humanizer-en` 即完成。
 
 > `fable-econ`／`fable-explore` 不在這條串接流程裡——它們是另一種獨立用途：從零用寓言學新概念（見下方專節）。
 
@@ -86,7 +86,7 @@ flowchart TD
 |---|---|---|---|
 | **[humanizer](humanizer/)** | 語言路由入口 | 打 `/humanizer`、不想指定語言、或中英混合——自動判語言轉到 -tw / -en | 本 repo |
 | **[humanizer-tw](humanizer-tw/)** | 去 AI 味（中文） | 處理 LLM 倒出的中文 / 已 OpenCC `s2twp` 轉過的簡中翻譯 | 原創（[yelban/humanizer.tw](https://github.com/yelban/humanizer.tw)） |
-| **[humanizer-en](humanizer-en/)** | 去 AI 味（英文） | 處理英文 AI 生成文字（33 patterns、voice calibration） | fork 自 [blader/humanizer](https://github.com/blader/humanizer)（synced v2.8.2） |
+| **[humanizer-en](humanizer-en/)** | 去 AI 味（英文） | 處理英文 AI 生成文字（36 patterns、voice calibration、annotate mode） | 基底 [blader/humanizer](https://github.com/blader/humanizer) v2.9.1，v3.0.0 起獨立演進 |
 | **[good-writing-tw](good-writing-tw/)** | 琢磨節奏 | 已經乾淨但讀起來悶 / 想提升文筆 / 技術文件保守潤飾 | 整合 Paul Graham + 余光中 + 王鼎鈞 |
 | **[fable-econ](fable-econ/)** | 寓言生成（經濟學） | 想用 Amanda Askell 原版 prompt 學經濟學概念 | [Amanda Askell, 2025.3 X 貼文](https://x.com/AmandaAskell/status/1898862564718923837) |
 | **[fable-explore](fable-explore/)** | 寓言生成（任何領域） | 跨領域學概念、可調難度（國小～專家）／風格／模式 | [Amanda Askell, 2026.4 Newcomer Pod 訪談](https://www.youtube.com/watch?v=0GaKJ4Fp2x4) |
@@ -107,7 +107,7 @@ flowchart TD
 - **標註模式**：只想知道「哪裡像 AI」時，輸出問題清單（問題族／觸發點／建議動作／是否建議改寫）不改稿
 - **看 cluster 不看單點**：偵測指南防誤殺——單一破折號或正式詞不算 AI，要徵兆叢集才動手；密度閾值（短段 2+／長段 3+）避免過度矯正
 
-**13 類 AI 寫作痕跡**：開場白與連接詞、互聯網黑話、翻譯腔、書面語過重、公式化結構、結尾套話、語氣問題、中式 AI 句型、中國用語滲入、OpenCC 漏網、無源權威歸因、新世代 LLM 口癖（含臆測填空）、結構與修辭 tell（假深刻語／開場宣告／假範圍／diff-anchored／短句連發戲劇腔／金句公式／假坦率開場…）。
+**13 類 AI 寫作痕跡**：開場白與連接詞、互聯網黑話、翻譯腔、書面語過重、公式化結構、結尾套話、語氣問題、中式 AI 句型、中國用語滲入、OpenCC 漏網、無源權威歸因、新世代 LLM 口癖（含臆測填空）、結構與修辭 tell（假深刻語／開場宣告／假範圍／diff-anchored／短句連發戲劇腔／金句公式／假坦率開場／多數人迷思開場／冒號揭曉／自問自答…）。
 
 **觸發詞：**
 ```
@@ -124,9 +124,10 @@ humanize 這段                  ← 自然語言
 
 ## humanizer-en 去 AI 味（英文）
 
-處理**英文** AI 生成文字的姊妹技能，fork 自 [blader/humanizer](https://github.com/blader/humanizer)（Siqi Chen，MIT），synced 上游 **v2.8.2**，pattern 內容逐字保留，僅將 `name` 由 `humanizer` 改為 `humanizer-en` 以與 humanizer-tw 對稱。
+處理**英文** AI 生成文字的姊妹技能。基底 [blader/humanizer](https://github.com/blader/humanizer)（Siqi Chen，MIT）v2.9.1，**自 v3.0.0 起獨立演進**：上游三個缺口（faux-insight setups／colon reveals／self-answered questions，§34–36）已補，並自 humanizer-tw 回流結尾金句「刪除不改寫」紀律與 annotate mode（列 pattern 證據、不斷言作者身分）。上游此後以定期 diff＋逐條 cherry-pick 方式吸收，不整包合併。
 
-- **33 條 pattern**：基於 Wikipedia「Signs of AI writing」——inflated symbolism、promotional language、rule of three、em dash overuse、vague attributions、AI vocabulary words…
+- **36 條 pattern**：Wikipedia「Signs of AI writing」基底 33 條＋獨立擴充 3 條——inflated symbolism、promotional language、rule of three、em dash overuse、faux-insight setups、colon reveals、self-answered questions…
+- **英文 gold 評測**：本地新 pattern 依 repo 紀律（規則＋guard＋gold 同次落地）以英文語料實測——v3.0.0 首輪 Fable 5 smoke：recall 100%、誤殺 0
 - **Voice calibration**：提供英文寫作樣本即對齊你的句長、用詞、標點習慣
 - **Detection guidance**：what NOT to flag + 看 cluster 不看單點 + 該保留的人類書寫徵兆
 
@@ -242,7 +243,7 @@ Amanda Askell 在 X 上分享過一個她最愛的提示詞：讓 Claude 從某�
 > **你說：** `/humanizer` 然後貼上文字，或「幫我去 AI 味：〔貼文字〕」
 > **會發生：** 輸出三段——`<diagnosis>`（按類別列出抓到的 AI 痕跡）、`<rewrite>`（改寫稿）、`<changelog>`（變更摘要）。文體自動判斷：部落格全規則開，公文只去毒、不口語化。
 >
-> **中英自動分流：** 三種叫法都行——① 自然語言「去 AI 味」② `/humanizer`（語言路由入口，自動判中英）③ 直接指定 `/humanizer-tw`（中文：在地化、OpenCC 漏網）或 `/humanizer-en`（英文：Wikipedia 33 patterns）。判語言看「要被改的文字」，不是你下指令的語言。
+> **中英自動分流：** 三種叫法都行——① 自然語言「去 AI 味」② `/humanizer`（語言路由入口，自動判中英）③ 直接指定 `/humanizer-tw`（中文：在地化、OpenCC 漏網）或 `/humanizer-en`（英文：36 patterns）。判語言看「要被改的文字」，不是你下指令的語言。
 
 ### 情境 2：fork 簡中專案，清 OpenCC 殘留
 翻譯或 fork 簡中 repo 的 README、文件，`opencc s2twp` 轉完還有漏網。
@@ -294,6 +295,7 @@ README、API 文件、CLI 說明——只順氣口，不動結構。
 | shyuan/writing-humanizer | 同上；實測誤殺率 39%（見下方〈實測〉） |
 | obra/superpowers writing-skills | 名字接近但其實是 **skill-authoring 方法論**（教怎麼寫 skill），不是文章潤稿 |
 | lguz/humanize-writing-skill | 英文版 3-pass 系統 + 36 banned words |
+| [petergyang/no-ai-slop](https://github.com/petergyang/no-ai-slop) | 英文編輯型 skill，voice-first、編輯品味佳但無量化評測、無中文層；其 3 個獨有 pattern 已中文化進 humanizer-tw v1.3.0 |
 | MCPMarket Paul Graham Style Essayist | 英文 PG 風格產生器，我們是中文改寫 + 余光中／王鼎鈞 |
 | IrtezaAsadRizvi/article-writing-skills | 風格化寫作集，沒處理 AI 痕跡這層 |
 
@@ -322,8 +324,8 @@ README、API 文件、CLI 說明——只順氣口，不動結構。
 
 ## 來源致謝
 
-- **humanizer-tw** 原創於 [yelban/humanizer.tw](https://github.com/yelban/humanizer.tw)，參考 [blader/humanizer](https://github.com/blader/humanizer) 與 [hardikpandya/stop-slop](https://github.com/hardikpandya/stop-slop) 的設計
-- **humanizer-en** fork 自 [blader/humanizer](https://github.com/blader/humanizer)（© 2025 Siqi Chen，MIT），synced 上游 v2.8.2，pattern 內容逐字保留、僅改 skill 名稱以與 humanizer-tw 對稱。其 MIT 授權見 [`humanizer-en/LICENSE`](humanizer-en/LICENSE)
+- **humanizer-tw** 原創於 [yelban/humanizer.tw](https://github.com/yelban/humanizer.tw)，參考 [blader/humanizer](https://github.com/blader/humanizer) 與 [hardikpandya/stop-slop](https://github.com/hardikpandya/stop-slop) 的設計；v1.3.0 的「多數人迷思開場／冒號揭曉／自問自答」與結尾金句紀律參考 [petergyang/no-ai-slop](https://github.com/petergyang/no-ai-slop)（MIT），中文化並補防誤殺 guard
+- **humanizer-en** 基底 [blader/humanizer](https://github.com/blader/humanizer)（© 2025 Siqi Chen，MIT）v2.9.1，自 v3.0.0 起獨立演進（§34–36 參考 [petergyang/no-ai-slop](https://github.com/petergyang/no-ai-slop)，並回流 humanizer-tw 的紀律）。其 MIT 授權見 [`humanizer-en/LICENSE`](humanizer-en/LICENSE)
 - **good-writing-tw** 整合 [Paul Graham〈Good Writing〉](http://www.paulgraham.com/goodwriting.html)、余光中《怎樣改進英式中文》、王鼎鈞《文學種籽》
 - **fable-econ** 重現 [@AmandaAskell/1898862564718923837](https://x.com/AmandaAskell/status/1898862564718923837)（2025.3）
 - **fable-explore** 延伸自 [Amanda Askell on Newcomer Pod](https://www.youtube.com/watch?v=0GaKJ4Fp2x4)（2026.4）「The Parable Prompt to Try With Claude」章節

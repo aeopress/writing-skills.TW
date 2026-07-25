@@ -21,6 +21,26 @@
 - 觀察項（未動）：fable 兩支與 humanizer-tw 本體 8k+ 字，超過 v2.1.x compaction 5,000 token 重附上限；標竿範例移 references/ 會犧牲生成品質（按需載入不保證被讀），暫不瘦身，長對話品質衰退時再議。
 - marketplace.json → 1.5.0。
 
+## 2026-07（第三輪）：no-ai-slop 借鑑（humanizer-tw v1.3.0）
+
+- **借鑑來源**：petergyang/no-ai-slop（英文編輯型 skill，voice-first、pass/fail 自檢——其 eval.md 印證我們不用評分 rubric 的立場）。逐 pattern 對照後真缺口 3 個＋紀律 1 條＋工作流 2 項，全數落地：
+  - 類別十三新增：**多數人迷思開場**（「沒有人告訴你」）、**冒號揭曉**（「最妙的是：」）、**自問自答**（「為什麼？因為……」）——中文自媒體高頻。
+  - **結尾金句「刪除不改寫」**：模型慣性是把爛金句改成更漂亮的金句；結尾案例規定刪掉、用文中最具體一句收尾。
+  - 模式一新增**無樣本聲音保留**（從待改稿本身讀 3–5 個聲音信號；純 LLM 輸出從簡）；標註模式新增**不斷言作者身分**（pattern 是證據，不是 AI 檢測器）。
+- guard 同次落地（FAQ 真設問、列表／定義冒號、有論據反主流），gold c11 擴至 15 筆（141 總筆），Fable 5 smoke：recall 1.0、FP 0。benchmark 補 TC13。
+- ~~humanizer-en 已知缺口（記錄，不本地修）~~ → 已由分家解決，見第四輪。
+- **不借**：em dash 寬鬆規則（與 blader §14 衝突）、先問受眾（我們文體感知自動判）。
+- marketplace.json → 1.6.0。
+
+## 2026-07（第四輪）：humanizer-en 分家（v3.0.0 獨立演進）
+
+- **決策**：不再逐字跟隨 blader 上游——我們的評測基礎設施（harness／防誤殺紀律／分流測試）已超過上游，跟隨等於讓最慢方定速。分家前先做**最後一次逐字同步到 v2.9.1**（上游 v2.9.x 帶來：no-fabrication 規則、「保留資訊而非形狀」、voice sample 位階高於 em-dash 規則、Invocation Modes、全文精簡到 412 行）。
+- **v3.0.0 本地擴充**：§34 faux-insight setups、§35 colon reveals、§36 self-answered questions（皆源自 no-ai-slop 分析）；§32 補 final-aphorism「刪除不改寫」；Invocation Modes 加 **Annotate mode**（不斷言作者身分）；detection guidance 補三條對應 guard。版號斷開上游（3.x=獨立），banner 改 "independently evolved since v3.0.0"。
+- **英文 gold 起步**：`build_gold_en.py` → `gold_en.jsonl`（7 筆：4 正例＋3 陷阱例）。Fable 5 smoke：recall 1.0、FP 0。score.py 語言無關，直接吃英文語料。
+- **維護規則改寫**（AGENTS.md）：上游改為定期 diff＋逐條 cherry-pick；-tw／-en 雙向回流，各自帶 guard 與 gold。
+- 註：上游 v2.8.3 起把 `version` 移到 `metadata.version`（符合官方 packaging 標準）——我們六支仍用頂層 `version`，validator 容忍；若日後要上官方 marketplace 再統一搬。
+- marketplace.json → 1.7.0。
+
 ---
 
 ## humanizer-tw 評估與 humanizer-zh-academic 借鑑（2026-06）
