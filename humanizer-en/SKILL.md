@@ -1,6 +1,6 @@
 ---
 name: humanizer-en
-version: 2.9.1
+version: 3.0.0
 user-invocable: true
 argument-hint: "<English text or file path to humanize>"
 description: |
@@ -26,7 +26,7 @@ allowed-tools:
 
 # Humanizer: Remove AI Writing Patterns
 
-> **Forked from [blader/humanizer](https://github.com/blader/humanizer)** by Siqi Chen (MIT License), synced at upstream **v2.9.1**. Bundled in writing-skills.TW for English AI-writing cleanup. For Traditional Chinese (Taiwan), use the sibling skill **humanizer-tw**. Original `name: humanizer` renamed to `humanizer-en` to pair with humanizer-tw; pattern content is verbatim.
+> **Based on [blader/humanizer](https://github.com/blader/humanizer)** by Siqi Chen (MIT License), forked at upstream **v2.9.1** and **independently evolved since v3.0.0**. Local additions: §34–36 (faux-insight setups, colon reveals, self-answered questions), the final-aphorism deletion rule in §32, annotate mode, and matching detection guards — cross-pollinated with the sibling skill **humanizer-tw** and covered by this repo's eval harness. Upstream is diffed periodically; good patterns get cherry-picked, not merged wholesale. For Traditional Chinese (Taiwan), use humanizer-tw.
 
 You are a writing editor that identifies and removes signs of AI-generated text to make writing sound more natural and human. This guide is based on Wikipedia's "Signs of AI writing" page, maintained by WikiProject AI Cleanup.
 
@@ -357,6 +357,8 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 **After:**
 > Symmetric layouts often feel more predictable to users. Teams can over-optimize workflows and miss how people actually use them.
 
+**When the aphorism is the final line, delete it — do not rewrite it into a better aphorism.** The failure mode is swapping one mic-drop for a prettier one. End on the most concrete sentence already in the draft, or add a plain takeaway or next action.
+
 ### 33. Conversational Rhetorical Openers
 
 **Phrases to watch:** Honestly?, Look, Here's the thing, The thing is, Let's be honest, Real talk, when used as standalone hooks or fake-candid pauses before an ordinary point.
@@ -365,6 +367,32 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 > Is it worth the price? Honestly? It depends on how often you'll use it.
 **After:**
 > Whether it's worth the price depends on how often you'll use it.
+
+### 34. Faux-Insight Setups
+
+**Phrases to watch:** What most people get wrong, Here's what nobody tells you, The part everyone misses, Most people don't realize, What no one talks about
+**Problem:** These openers cast the writer as the lone clear-sighted expert, and the claim that follows is usually ordinary. Cut the setup and let the claim stand on its own. A genuinely contrarian point backed by evidence ("Textbooks say X, but our measurements across 12 services show Y") is not this pattern — the tell is declaring everyone wrong without showing why.
+**Before:**
+> Here's what nobody tells you about database indexes: more isn't faster.
+**After:**
+> More indexes aren't faster. Every index adds write cost.
+
+### 35. Colon Reveals
+
+**Problem:** A noun phrase, a colon, then a short dramatic reveal: "The best part: it learns." "The catch: nobody noticed." Rewrite as a plain sentence. Colons stay for lists, definitions, labels, and quotes ("Three formats are supported: JSON, YAML, TOML") — the tell is the reveal cadence, especially when it clusters.
+**Before:**
+> The best part: it learns. The catch: nobody noticed for a month.
+**After:**
+> It learns, which is the most useful part. Nobody noticed for a month, though.
+
+### 36. Self-Answered Questions
+
+**Phrases to watch:** Why does this matter? Because..., Think it's X? Wrong — it's Y, What's the problem? The problem is..., Sound familiar?
+**Problem:** The writer poses a question and immediately answers it to manufacture drama or interactivity. Delete the question and state the point. Real Q&A conventions (FAQs, interviews, docs with a Questions section) are legitimate formats, not this pattern — the tell is an essay repeatedly staging questions just to reveal the answers.
+**Before:**
+> Why did the launch slip? Because the review queue doubled. Sound familiar? It should.
+**After:**
+> The launch slipped because the review queue doubled.
 
 ## DETECTION GUIDANCE
 
@@ -385,6 +413,9 @@ A clean human writer can hit several of the patterns above without any AI involv
 - **Unsourced claims.** Most of the web is unsourced. Lack of citations doesn't prove anything.
 - **Correct, complex formatting.** Visual editors and templates produce clean output without any AI.
 - **Secondhand text.** Do not rewrite watched phrases inside quotations, titles, proper names, or examples where the phrase is being discussed rather than used.
+- **Real Q&A formats.** FAQs, interview transcripts, and docs with a Questions section pose and answer questions by convention. §36 targets essays staging questions for drama, not these formats.
+- **Ordinary colons.** Colons before lists, definitions, labels, and quotes are normal punctuation. §35 targets the "noun phrase: dramatic reveal" cadence, and mostly when it clusters.
+- **Evidenced contrarianism.** "The standard advice is X, but our data shows Y" with the data attached is an argument, not a faux-insight setup. §34 targets the empty "everyone is wrong" framing with nothing behind it.
 
 When in doubt, look for **clusters** of tells, not isolated ones. A single em dash means nothing; em dashes plus rule-of-three plus *vibrant tapestry* plus a "Conclusion" section is a confession.
 
@@ -409,6 +440,8 @@ When you see these, lean toward leaving the prose alone — they are evidence of
 **File mode.** The user points at a file. Read it, run the draft → audit → final loop internally, then rewrite the file in place so it ends up containing only the final rewrite. Humanize the prose only: leave code blocks, frontmatter, data, and link targets untouched. In the conversation, report a short summary of what changed rather than pasting the whole rewrite back.
 
 **Embedded mode.** Another task or agent is using this skill as one step of a larger job (a PR description, a commit message, a doc). Run the loop internally and output only the final text. No draft, no audit bullets, no summary. The caller wants prose, not ceremony.
+
+**Annotate mode (detect only).** The user asks "which parts sound AI?", "flag the patterns," or "audit, don't rewrite." List each pattern found — quoted line, pattern name, and a short fix — and do not output a rewrite. **Never claim authorship**: named patterns are evidence the user can check, and humans write these patterns too (see Detection Guidance). If asked directly whether AI wrote the text, report the pattern density and say authorship cannot be determined from prose alone.
 
 ## Process and Output
 
