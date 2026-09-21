@@ -1,6 +1,6 @@
 ---
 name: humanizer-en
-version: 3.0.0
+version: 3.1.0
 user-invocable: true
 argument-hint: "<English text or file path to humanize>"
 description: |
@@ -26,7 +26,7 @@ allowed-tools:
 
 # Humanizer: Remove AI Writing Patterns
 
-> **Based on [blader/humanizer](https://github.com/blader/humanizer)** by Siqi Chen (MIT License), forked at upstream **v2.9.1** and **independently evolved since v3.0.0**. Local additions: §34–36 (faux-insight setups, colon reveals, self-answered questions), the final-aphorism deletion rule in §32, annotate mode, and matching detection guards — cross-pollinated with the sibling skill **humanizer-tw** and covered by this repo's eval harness. Upstream is diffed periodically; good patterns get cherry-picked, not merged wholesale. For Traditional Chinese (Taiwan), use humanizer-tw.
+> **Based on [blader/humanizer](https://github.com/blader/humanizer)** by Siqi Chen (MIT License), forked at upstream **v2.9.1** and **independently evolved since v3.0.0**. Local additions: §34–37 (faux-insight setups, colon reveals, self-answered questions, contraction avoidance), the final-aphorism deletion rule in §32, the "X, not Y" appositive and density threshold in §9, the conversational-clipping guard in §13, the draft-versus-sample rule in Voice Calibration, annotate mode, and matching detection guards — cross-pollinated with the sibling skill **humanizer-tw** and covered by this repo's eval harness. Upstream is diffed periodically; good patterns get cherry-picked, not merged wholesale. For Traditional Chinese (Taiwan), use humanizer-tw.
 
 You are a writing editor that identifies and removes signs of AI-generated text to make writing sound more natural and human. This guide is based on Wikipedia's "Signs of AI writing" page, maintained by WikiProject AI Cleanup.
 
@@ -50,6 +50,8 @@ If the user provides a writing sample (their own previous writing), analyze it b
 3. Without a sample, use the default behavior below.
 
 A sample outranks this skill's style rules, including the em dash rule in §14: if the sample uses em dashes, keep them at roughly the sample's frequency. Matching the author beats scrubbing the tell.
+
+**What counts as the sample.** The sample is the author's finished or published writing, the voice they have already chosen to put their name on. A rough draft the author pastes into the conversation for cleanup is input, not the sample; it can carry tells the author would want removed. When a draft and the published corpus disagree (the draft has an em dash, the published posts have none), the published corpus wins.
 
 ## PERSONALITY AND SOUL
 
@@ -152,6 +154,12 @@ When voice is appropriate, avoid uniform sentence structures, bloodless neutrali
 **After:**
 > The options come from the selected item without forcing the user to guess.
 
+The plain appositive form, "X, not Y", is the most common member of this family and is missing from the list above. One instance is a good sentence: it is precise and short. The tell is density, several in one passage riding the same frame (see the density threshold under Detection Guidance). When a cluster trips, keep the one that earns its place and vary the rest; do not delete them all.
+**Before (appositive density):**
+> Flash attention saves memory, not compute. The extra bits buy convenience, not quality. The glitches were the runtime, not the model. Measured, not claimed.
+**After:**
+> Flash attention saves memory but not compute. The extra bits buy convenience without adding quality. The runtime was producing the glitches all along. Measured, not claimed.
+
 ### 10. Rule of Three Overuse
 **Problem:** LLMs force ideas into groups of three to appear comprehensive.
 **Before:**
@@ -179,6 +187,12 @@ When voice is appropriate, avoid uniform sentence structures, bloodless neutrali
 > No configuration file needed. The results are preserved automatically.
 **After:**
 > You do not need a configuration file. The system preserves the results automatically.
+
+The test is whether the dropped word is the **actor**. "The results are preserved" hides who preserves them; that is the pattern. Conversational clipping drops only articles and filler while the actor stays obvious from context, and it reads like a person typing fast. Keep it.
+**Not this pattern (keep):**
+> Run finished fine, number looked plausible, would've gone straight into a table.
+
+Here the writer is plainly the one who ran it. Expanding this to "The run finished fine, the number looked plausible, and it would have gone straight into a table" makes it stiffer, not clearer.
 
 ## STYLE PATTERNS
 
@@ -394,6 +408,16 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 **After:**
 > The launch slipped because the review queue doubled.
 
+### 37. Contraction Avoidance
+
+**Words to watch:** it is, that is, do not, cannot, would have, there is, I am, we will (in a register where a person would contract)
+**Problem:** LLMs default to expanded forms even in casual, first-person, or social writing. No single expanded form is wrong; the tell is that they are uniformly expanded, and the uniformity reads as machine. Two related completeness reflexes travel with it: a redundant determiner ("Neither one throws" where "Neither throws" is natural) and the tidy mid-position adverb ("I now log" where a person would say "Now I log").
+**Register gate:** Apply this only where PERSONALITY AND SOUL applies: blog posts, replies, personal and opinion writing. In technical documentation, legal, academic, and reference text, expanded forms are the correct register. Do not contract there.
+**Before:**
+> That is why I left them in. Neither one throws an error. I now log slot count next to every timing.
+**After:**
+> That's why I left them in. Neither throws an error. Now I log slot count next to every timing.
+
 ## DETECTION GUIDANCE
 
 ### What NOT to flag (false positives)
@@ -418,6 +442,8 @@ A clean human writer can hit several of the patterns above without any AI involv
 - **Evidenced contrarianism.** "The standard advice is X, but our data shows Y" with the data attached is an argument, not a faux-insight setup. §34 targets the empty "everyone is wrong" framing with nothing behind it.
 
 When in doubt, look for **clusters** of tells, not isolated ones. A single em dash means nothing; em dashes plus rule-of-three plus *vibrant tapestry* plus a "Conclusion" section is a confession.
+
+**Density threshold.** One instance of a frame is a sentence; a cluster is a tell. Working rule, ported from the sibling humanizer-tw: in a short passage (under roughly 100 words) the same frame two or more times, in a longer one three or more, counts as a signal. Below that, leave it alone. When a cluster does trip the rule, keep the one instance that does the most work and vary the rest; stripping every occurrence over-corrects. This applies to any repeatable frame, the "X, not Y" appositive in §9 being the most common.
 
 ### Signs of human writing (preserve these)
 
