@@ -19,7 +19,7 @@
 改任何 skill 行為時，以下必須在**同一次變更**內一起更新：
 
 1. 該 skill `SKILL.md` frontmatter 的 `version`（semver：加規則 = minor，修字 = patch）。
-2. `README.md` 中對應的宣稱：pattern 數量（humanizer-en 目前 **36 條**）、fork 基底版號（**v2.9.1**）、能力列表、實測數字。
+2. `README.md` 中對應的宣稱：pattern 數量（humanizer-en 目前 **37 條**，§1–§37）、fork 基底版號（**v2.9.1**）、能力列表、實測數字。
 3. `.claude-plugin/marketplace.json` 的 `metadata.version`（整包 plugin 的版本）。
 4. `humanizer/SKILL.md`（路由入口）若提及姊妹 skill 的 pattern 數或能力，一併更新。
 
@@ -55,6 +55,7 @@
 
 - 官方欄位用**連字號**形式：`user-invocable`、`argument-hint`（2026-07 對照官方文件確認；底線舊形式已全數改掉）。
 - `description`（含 `when_to_use`）合計上限 1,536 字元；`SKILL.md` 本文控制在 500 行內，細節放 `references/`。
+- `description` 只放一句做什麼、一句何時用、幾個觸發詞（中文約 200–250 字元）；觸發詞全表、模式說明與分工放本文開頭的速查節。描述是唯一常駐 session context 的部分，本文只在呼叫時載入。改描述後跑 `route_eval.py`，「不帶關鍵字也該觸發」那句不能省（2026-09 實測，見 docs）。
 - `version` 是 Claude Code 容忍的擴充欄位，官方 packaging 標準未列——validator 會降級為 note，屬預期。
 
 ## 寫作慣例

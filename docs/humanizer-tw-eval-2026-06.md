@@ -102,6 +102,17 @@ skill 升至 v1.2.0（新增短句連發戲劇腔／金句公式／假坦率開�
 
 **觸發分流（第 2 層擴充，2026-07）**：`trigger_eval.py` 只測單一 skill 該不該觸發；新增 `route_eval.py`＋`route_set.json` 測「六支同場時路由給誰」——25 題（五族正例＋coding／翻譯／摘要負例＋曖昧題容忍集），sonnet n3 多數決：accept_rate **100%**、primary_rate 96%、NONE 特異度 **100%**，全題 3/3 一致票。「潤稿 vs 去 AI 味」的分工在 description 層成立，未調任何 description。原始數據：`results_route.json`。
 
+**描述瘦身（2026-09）**：六支 `description` 是唯一常駐 session context 的部分（本文只在呼叫時載入），合計 3,515 字元，其中四支各 660–936 字元，因為把觸發詞全表、模式說明與分工都寫進去了。本輪把每支縮成「一句做什麼、一句何時用、幾個觸發詞」，全表與模式提示搬進各本文開頭的速查節：合計降到 **2,038 字元**（humanizer 191、humanizer-tw 251、humanizer-en 434、good-writing-tw 215、fable-econ 415、fable-explore 532；三支英文描述按 token 計約與中文 250 字元同級，故未再壓）。以同一套 sonnet n3 對照：
+
+| 指標 | 改前 | 改後 |
+|---|---|---|
+| route accept_rate（25 題） | 100% | 100% |
+| route primary_rate | 96% | 96% |
+| route NONE 特異度 | 100% | 100% |
+| trigger recall／specificity（humanizer-tw，12 題） | 100%／100% | 100%／100% |
+
+中途退步一次：fable-explore 第一版描述把「沒說寓言、只要概念故事也算」與「難度可用自然語言講」兩個線索一起砍掉，fx_02「用國小程度講一個天文學的概念故事」從 3/3 掉成 2 票 NONE；補回兩句後回到 3/3。fe_02 票數由 3:0 變 2:1（多數仍 fable-econ），視為單次取樣雜訊。教訓：描述可以短，但「不帶關鍵字也該觸發」的那句不能省，模型靠它把曖昧請求接住。原始數據：`results_route.json`（改後）、`results_trigger.json`。
+
 ## 七、重跑方式
 
 ```bash

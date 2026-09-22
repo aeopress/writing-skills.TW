@@ -1,18 +1,10 @@
 ---
 name: good-writing-tw
-version: "1.2.0"
+version: "1.2.1"
 description: |
-  中文好寫作指南：提升中文寫作品質與改寫既有文章。基於 Paul Graham、余光中、王鼎鈞的寫作智慧。
-
-  使用時機：
-  - 用戶說「潤稿」「改寫」「rewrite」「讓文字更順」
-  - 用戶要求「改善文筆」「寫好一點」「高品質中文」
-  - 用戶提供文章並要求修改或潤飾
-  - 需要產出高品質中文內容時
-
-  技術文件（README、API 文件、CLI 說明）請使用保守模式（見下方模式三），避免改動結構化列舉與術語連綴。
-
-  觸發詞：/good-writing-tw、/潤稿、good writing、潤稿、改寫、rewrite、文筆、讓文字更順、技術文件潤飾、conservative 模式
+  中文好寫作：依 Paul Graham、余光中、王鼎鈞的原則改寫既有中文，處理氣口、句長錯落、句尾、贅字與強動詞，讓文字更順、更有節奏。
+  使用時機：使用者說「潤稿」「改寫」「讓文字更順」「改善文筆」，或提供文章要求潤飾。技術文件（README、API 文件）走保守模式，不動結構化列舉與術語。去 AI 味與中國用語交給 humanizer-tw。
+  觸發詞：/good-writing-tw、/潤稿、潤稿、改寫、文筆、技術文件潤飾。
 user-invocable: true
 argument-hint: "<article text or file path to rewrite>"
 ---
@@ -22,6 +14,11 @@ argument-hint: "<article text or file path to rewrite>"
 > **注意：** 本 Skill 專注於句型結構精簡與節奏琢磨。若需處理 AI 生成痕跡、翻譯腔與中國用語，請搭配 humanizer-tw。建議順序：先 humanizer-tw（去機器味）→ 再 good-writing-tw（琢磨節奏）。
 
 ---
+
+## 觸發詞與模式速查
+
+- 觸發詞：/good-writing-tw、/潤稿、good writing、潤稿、改寫、rewrite、文筆、讓文字更順、改善文筆、寫好一點、高品質中文、技術文件潤飾、conservative 模式。使用者提供文章要求修改或潤飾，或需要產出高品質中文內容時也適用。
+- 技術文件（README、API 文件、CLI 說明）用模式三保守模式，避免改動結構化列舉與術語連綴。
 
 ## 節奏規則
 

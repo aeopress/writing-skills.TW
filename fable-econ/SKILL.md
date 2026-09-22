@@ -1,16 +1,9 @@
 ---
 name: fable-econ
-description: >
-  Amanda Askell's original economics fable prompt (March 2025). Picks a niche economics
-  principle that early undergrads wouldn't know but late grad students would, writes a
-  strict 3-paragraph illustrative story without naming the principle, then reveals and
-  explains it in a single closing paragraph. Faithful to the original structured format.
-  Use this skill whenever the user says /fable-econ, /經濟寓言, "economics fable",
-  「經濟學寓言」, "illustrate an economics concept", or asks for a story that teaches
-  an economics idea — even when they don't explicitly say "fable" but want to learn
-  an economics concept through narrative. For general-purpose fable exploration across
-  any field, use fable-explore instead.
-version: "1.5.0"
+description: |
+  Amanda Askell's economics fable (March 2025): pick a niche economics principle that late grad students know, tell a strict 3-paragraph story that illustrates it without naming it, then reveal and explain it in one closing paragraph.
+  Use when the user says /fable-econ, /經濟寓言, "economics fable", 「經濟學寓言」, or wants to learn an economics idea through a story. Any other field, or a looser structure: use fable-explore.
+version: "1.5.1"
 user-invocable: true
 argument-hint: "[子領域，如 拍賣理論] [-3 連續三篇] [-i 互動猜題]"
 ---
@@ -21,6 +14,10 @@ argument-hint: "[子領域，如 拍賣理論] [-3 連續三篇] [-i 互動猜�
 > https://x.com/AmandaAskell/status/1898862564718923837
 
 Amanda 最初分享的提示詞，**鎖定經濟學**、結構嚴格：3 段故事 + 1 段揭曉。
+
+## 何時使用
+
+使用者說 /fable-econ、/經濟寓言、economics fable、「經濟學寓言」、"illustrate an economics concept"，或想透過故事學一個經濟學概念（沒說「寓言」也算）時使用。其他領域、或不需嚴格三段結構時，改用 fable-explore（差異見文末）。
 
 ## 為什麼是這個結構
 

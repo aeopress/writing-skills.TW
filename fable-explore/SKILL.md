@@ -1,18 +1,9 @@
 ---
 name: fable-explore
-description: >
-  Fable-based concept explorer — learn any field through parables. Picks a graduate-level
-  concept from a user-specified domain, writes a literary fable that indirectly conveys it
-  (the reveal comes only near the end), then follows with a clear explanation. Supports
-  difficulty levels (-e easy, -h hard), batch mode (-3), interactive guess-first mode (-i),
-  multiple-choice quiz (-g), cross-domain structural comparison (-x), and story styles
-  (-s 莊子/sci-fi/aesop/detective). Use this skill whenever the user says /fable-explore,
-  /寓言, /探索, 寓言探索, 用故事學, fable explore, "tell me a fable about", "用寓言教我",
-  or wants to learn ANY field through narrative — even when they don't explicitly say
-  "fable" but ask to understand a concept via story. Also trigger when user says "再一個"
-  or "another" after a previous fable to continue exploring the same field within the
-  same conversation. For economics-only with strict 3-paragraph structure, use fable-econ.
-version: "1.5.0"
+description: |
+  Learn any field through a fable: pick a concept from the user's domain at the level they ask for (國小到研究所，預設研究所), write a literary parable that reveals the concept only near the end, then explain it plainly. Batch, guess-first, quiz, cross-domain and story-style flags are in the body.
+  Use when the user says /fable-explore, /寓言, 寓言探索, 用故事學, 用寓言教我, "tell me a fable about", asks for a concept explained as a story even without the word "fable", or says 再一個／another after a fable. Economics in strict 3-paragraph form: use fable-econ.
+version: "1.5.1"
 user-invocable: true
 argument-hint: "<領域> [難度，如 國中程度／最難的] [-i 猜題／-g 選擇題／-x 跨域／-s 風格]"
 ---
@@ -40,7 +31,7 @@ Amanda 在訪談裡的原話：「I want you to take a concept from maybe grad s
 /fable-explore -s 莊子 神經科學             ← 指定風格
 ```
 
-自然語言直接說就好：「用寓言教我經濟學」「簡單一點的物理」「再一個」。**同一對話內**可以說「再一個」「another」「繼續」沿用上輪設定；跨對話沒有記憶，要重新指定領域。
+自然語言直接說就好，不必記指令：「用寓言教我經濟學」「用故事學量子力學」「tell me a fable about entropy」「簡單一點的物理」，或想用敘事理解任何領域的概念都適用，沒說「寓言」也算；/寓言、/探索、寓言探索、fable explore 也會觸發。**同一對話內**可以說「再一個」「another」「繼續」沿用上輪設定；跨對話沒有記憶，要重新指定領域。只做經濟學且要 Amanda 原版嚴格三段結構時，改用 fable-econ。
 
 ## 解析輸入
 

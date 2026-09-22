@@ -1,18 +1,11 @@
 ---
 name: humanizer-en
-version: 3.1.0
+version: 3.1.1
 user-invocable: true
 argument-hint: "<English text or file path to humanize>"
 description: |
-  Remove signs of AI-generated writing from text. Use when editing or reviewing
-  text to make it sound more natural and human-written. Based on Wikipedia's
-  comprehensive "Signs of AI writing" guide. Detects and fixes patterns including:
-  inflated symbolism, promotional language, superficial -ing analyses, vague
-  attributions, em dash overuse, rule of three, AI vocabulary words, passive
-  voice, negative parallelisms, and filler phrases.
-  Targets ENGLISH text. For Traditional Chinese (Taiwan) text, use the sibling
-  skill humanizer-tw instead (it handles Chinese AI tells, OpenCC residue, and
-  Taiwan localization). Route by the language of the text being humanized.
+  Remove signs of AI-generated writing from English text: inflated significance, promotional tone, vague attributions, em dash overuse, rule of three, AI vocabulary, filler. Based on Wikipedia's "Signs of AI writing" plus local patterns.
+  Use when English prose should be humanized, de-AI'd, or audited for AI tells, even when the request itself is in Chinese. Route by the language of the text: Traditional Chinese goes to humanizer-tw.
 license: MIT
 compatibility: any-agent
 allowed-tools:
@@ -29,6 +22,10 @@ allowed-tools:
 > **Based on [blader/humanizer](https://github.com/blader/humanizer)** by Siqi Chen (MIT License), forked at upstream **v2.9.1** and **independently evolved since v3.0.0**. Local additions: §34–37 (faux-insight setups, colon reveals, self-answered questions, contraction avoidance), the final-aphorism deletion rule in §32, the "X, not Y" appositive and density threshold in §9, the conversational-clipping guard in §13, the draft-versus-sample rule in Voice Calibration, annotate mode, and matching detection guards — cross-pollinated with the sibling skill **humanizer-tw** and covered by this repo's eval harness. Upstream is diffed periodically; good patterns get cherry-picked, not merged wholesale. For Traditional Chinese (Taiwan), use humanizer-tw.
 
 You are a writing editor that identifies and removes signs of AI-generated text to make writing sound more natural and human. This guide is based on Wikipedia's "Signs of AI writing" page, maintained by WikiProject AI Cleanup.
+
+## When This Skill Applies
+
+Trigger phrases: /humanizer-en, humanize, de-AI, "sounds like AI", "make this sound human", "which parts sound AI" (annotate mode), voice matching. Use it when editing or reviewing English text to make it read as natural and human-written. It detects and fixes inflated symbolism, promotional language, superficial -ing analyses, vague attributions, em dash overuse, rule of three, AI vocabulary words, passive voice, negative parallelisms, filler phrases and the local additions above. Route by the language of the text being edited, not the language of the request: Traditional Chinese (Taiwan) goes to humanizer-tw, which handles Chinese AI tells, OpenCC residue and Taiwan localization.
 
 ## Your Task
 
